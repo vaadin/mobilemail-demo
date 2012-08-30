@@ -1,0 +1,289 @@
+/* @override http://localhost:8080/mobilemail/VAADIN/themes/mobilemail/styles.css */
+
+@import "../base/styles.css";
+
+.v-touchkit-navbar .v-touchkit-componentgroup-h {
+	white-space: nowrap;
+}
+
+.v-table-body {
+	border: none;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.tablet .mailboxes {
+	border-right: 1px solid rgba(0,0,0,.3);
+}
+
+.tablet .mailboxes .v-touchkit-navview-wrapper,
+.tablet .mailboxes .v-touchkit-navpanel-placeholder {
+	background: #f6f6f7;
+}
+
+.phone .v-touchkit-navview-wrapper .v-table,
+.phone .v-touchkit-navpanel-placeholder {
+	background: #fff;
+}
+
+.mailboxes .v-table .v-touchkit-navbutton {
+	border: none;
+	padding: 0 12px;
+}
+
+.mailboxes .v-table .v-touchkit-navbutton:focus,
+.mailboxes .v-table .v-touchkit-navbutton:active {
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4d8cb9), to(#3e6fa8));
+	color: #fff;
+	text-shadow: 0 1px 1px #396897;
+}
+
+.mailboxes .v-table-cell-content {
+	padding: 0;
+	vertical-align:middle;
+}
+
+.v-touchkit-navview-toolbar .v-touchkit-navbar-caption {
+	font-size: 13px;
+	}
+
+.v-navbutton::after {
+	top: 0 !important;
+}
+
+.v-table .v-label.new-marker {
+	height: 50px;
+	width: 30px;
+	padding: 0;
+	background: transparent url(graphics/blue-ball.png) no-repeat 50% 100%;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+	.v-table .v-label.new-marker {
+		background-image: url(graphics/blue-ball-2x.png);
+		-webkit-background-size: 14px 13px;
+	}
+}
+
+.message-layout .v-label-undef-w {
+	display: inline-block;
+}
+
+.message-layout .details-link {
+	float: right;
+}
+
+.message-layout .mark-as-unread-button {
+	float: right;
+	position: relative;
+	top: 4px;
+}
+
+.selected-checkbox {
+	margin: 32px 0 0 10px;
+}
+
+.v-table-cell-content {
+	border:0;
+}
+
+.v-table-cell-wrapper {
+	border: none;
+	padding-top: 1px;
+	border-bottom: 1px solid #d8d8d9;
+}
+
+.message-list .v-table-cell-wrapper {
+	height: 90px;
+}
+
+.v-table-focus .v-table-cell-wrapper {
+	margin: 0;
+}
+
+.v-table .v-selected {
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4d8cb9), to(#3e6fa8));
+	outline: none;
+}
+
+.v-table .v-selected,
+.v-table .v-selected .v-label {
+	text-shadow: 0 1px 1px #396897 !important;
+	color: #fff !important;
+}
+
+.v-table-row,.v-table-row-odd {
+	background: none;
+	cursor: default;
+}
+
+.v-table .v-label {
+	padding: 0 20px 0 4px;
+	line-height: 1.2;
+}
+
+.v-table .message-button > .v-csslayout-margin {
+	padding: 3px 0;
+}
+
+.v-table .message-button-from {
+	font-size: 17px;
+	font-weight: bold;
+	line-height: 1.2;
+	margin-bottom: 2px;
+}
+
+.v-table .v-label-light {
+	color: #797b7f;
+	font-size: 13px;
+	line-height: 15px;
+	margin-top: -4px;
+}
+
+.message-button {
+	white-space: normal;
+	position: relative;
+}
+
+.message-button-from,
+.message-button-time {
+	display: inline-block;
+}
+
+.v-table .message-button-time {
+	position: absolute;
+	right: 0;
+	top: 10px;
+	color: #1b699f;
+}
+
+.from-button {
+	border: 1px solid #87a2bf;
+	border-radius: 10px;
+	background: #dce6ef -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dee8f1), to(#cedae5));
+	line-height: 1;
+	padding: 1px 7px;
+	margin-left: 6px;
+	vertical-align: 3px;
+}
+
+.from-button .v-button-caption,
+.from-button .v-nativebutton-caption {
+	color: #222;
+}
+
+.details-link {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+.message-view {
+	background: #fff;
+}
+
+.message-view.no-message {
+	background: transparent;
+}
+
+.no-message .message-layout  {
+	height: 100%;
+	background: transparent;
+	-webkit-box-shadow: inset 0 1px 5px rgba(0,0,0,.3);
+}
+
+.no-message .message-layout div {
+	height: 100%;
+	font-size: 20px;
+	font-weight: bold;
+	text-shadow: 0 1px 0 rgba(255,255,255,.4);
+	color: #6a6c6f;
+	text-align: center;
+	position: relative;
+}
+
+.no-message .message-layout .v-label {
+	height: auto;
+	top: 40%;
+}
+
+.message-view .message-layout {
+	font-size: 16px;
+	line-height: 22px;
+}
+
+.message-view .message-layout > .v-csslayout-margin {
+	padding: 16px 20px;
+	}
+
+.no-message .message-layout > .v-csslayout-margin {
+	padding: 0;
+	}
+
+.message-view .message-layout hr {
+	height: 1px;
+	overflow: hidden;
+	background: #dcdcdc;
+	border: none;
+	border-bottom: 1px solid #fff;
+	margin: 12px -20px;
+}
+
+.message-layout .light-text,
+.message-layout .light {
+	color: #797b7f;
+}
+
+.message-layout .light b {
+	font-weight: normal;
+}
+
+.message-layout .h2 {
+	color: #222;
+	font-size: 17px;
+	font-weight: bold;
+	padding-bottom: 2px;
+}
+
+.message-details {
+	margin: 0 -20px;
+	padding: 0 20px;
+}
+
+.v-touchkit-fullscreen.new-message {
+	background: #fff;
+}
+
+.new-message .v-textfield,
+.new-message .v-textarea {
+	-webkit-appearance: none;
+	border: none;
+	background: transparent;
+	font-size: 15px;
+}
+
+.new-message .v-textarea {
+	border-top: 1px solid #ddd;
+	padding: 10px 12px;
+	line-height: 20px;
+}
+
+.new-message .v-formlayout-row > td {
+	border-color: #ddd;
+}
+
+.v-touchkit-navbar-left {
+	line-height: 25px !important;	
+}
+.v-touchkit-navbar .v-button .v-button-wrap {
+	background: none !important;
+}
+.v-touchkit-navbar .v-button:active .v-button-wrap {
+	background: none !important;
+}
+.v-touchkit-navbar > div > .v-button, .v-touchkit-horizontalcomponentgroup {
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(246,246,246,.46)), to(rgba(145,149,159,.46)), color-stop(.49, rgba(160,162,167,.46)), color-stop(.51, rgba(130,133,142,.46))) !important;	
+}
+.v-touchkit-navbar > div > .v-button:active, .v-touchkit-horizontalcomponentgroup {
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(200,200,200,.55)), to(rgba(128,131,141,.55)), color-stop(.49, rgba(132,134,138,.55)), color-stop(.51, rgba(101,104,113,.55))) !important;	
+}

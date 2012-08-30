@@ -1,0 +1,24 @@
+<module>
+	<!--
+	    This file is automatically updated based on new dependencies by the
+	    goal "vaadin:update-widgetset".
+	--> 
+                
+ 
+	<!-- Inherit DefaultWidgetSet -->
+	<inherits name="com.vaadin.terminal.gwt.DefaultWidgetSet" /> 
+  
+    <inherits name="com.vaadin.addon.touchkit.gwt.TouchKitWidgetSet" />
+    
+    	<!-- This instructs the cache manifest linker to add also files from our 
+		theme directory. Then e.g. the styles.css is accessible faster and also during 
+		offline usage. The value is relative to compilers execution path (most commonly 
+		the root path of the project). The part after ":" is used as relative root 
+		for files added. Note that paths are relative to your widgetsets base directory 
+		where the cache manifest will end up to. -->
+	<set-configuration-property
+		name='touchkit.manifestlinker.additionalCacheRoot'
+		value='src/main/webapp/VAADIN/themes/mobilemail:../../themes/mobilemail' />
+    
+
+</module>
