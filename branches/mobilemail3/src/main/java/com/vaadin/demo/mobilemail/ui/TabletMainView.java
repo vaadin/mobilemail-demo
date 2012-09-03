@@ -66,7 +66,10 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             addComponent(mailboxHierarchyView);
             addComponent(messageView);
             setExpandRatio(messageView, 1);
-            messageView.setLeftComponent(messageView.getNavigationLayout());
+            HorizontalComponentGroup hc = new HorizontalComponentGroup();
+            hc.addComponent(messageView.getNavigationPrevButton());
+            hc.addComponent(messageView.getNavigationNextButton());
+            messageView.setLeftComponent(hc);
         } else {
             showMailboxHierarchyButton = new Button();
             showMailboxHierarchyButton.addListener(this);
@@ -77,11 +80,8 @@ public class TabletMainView extends HorizontalLayout implements MainView,
 
             HorizontalComponentGroup hc = new HorizontalComponentGroup();
             hc.addComponent(showMailboxHierarchyButton);
-            while (messageView.getNavigationLayout().iterator().hasNext()) {
-                Component c = messageView.getNavigationLayout().iterator()
-                        .next();
-                hc.addComponent(c);
-            }
+            hc.addComponent(messageView.getNavigationPrevButton());
+            hc.addComponent(messageView.getNavigationNextButton());
             messageView.setLeftComponent(hc);
         }
 
@@ -100,11 +100,11 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             height = Page.getCurrent().getBrowserWindowHeight();
         } else {
 
-            width = ((MobileMailUI) MobileMailUI.getCurrent())
-                    .getBrowser().getScreenWidth();
+            width = ((MobileMailUI) MobileMailUI.getCurrent()).getBrowser()
+                    .getScreenWidth();
 
-            height = ((MobileMailUI) MobileMailUI
-                    .getCurrent()).getBrowser().getScreenHeight();
+            height = ((MobileMailUI) MobileMailUI.getCurrent()).getBrowser()
+                    .getScreenHeight();
 
             return false;
         }
@@ -123,9 +123,8 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             popover.setContent(mailboxHierarchyView);
             popover.setClosable(true);
             popover.showRelativeTo(showMailboxHierarchyButton);
-            popover.setHeight(((MobileMailUI) MobileMailUI
-                    .getCurrent()).getBrowser().getScreenHeight() - 100,
-                    Unit.PIXELS);
+            popover.setHeight(((MobileMailUI) MobileMailUI.getCurrent())
+                    .getBrowser().getScreenHeight() - 100, Unit.PIXELS);
             popover.addListener(new CloseListener() {
                 @Override
                 public void windowClose(CloseEvent e) {

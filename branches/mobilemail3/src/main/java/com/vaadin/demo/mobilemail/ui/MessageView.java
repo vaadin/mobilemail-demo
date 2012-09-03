@@ -144,6 +144,14 @@ public class MessageView extends NavigationView implements ClickListener {
         return navigationActions;
     }
 
+    public Button getNavigationPrevButton() {
+        return prevButton;
+    }
+
+    public Button getNavigationNextButton() {
+        return nextButton;
+    }
+
     private Message message;
     private MessageHierarchyView currentMessageList;
 
