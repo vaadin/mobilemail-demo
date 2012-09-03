@@ -275,15 +275,3 @@
 .v-touchkit-navbar-left {
 	line-height: 25px !important;	
 }
-.v-touchkit-navbar .v-button .v-button-wrap {
-	background: none !important;
-}
-.v-touchkit-navbar .v-button:active .v-button-wrap {
-	background: none !important;
-}
-.v-touchkit-navbar > div > .v-button, .v-touchkit-horizontalcomponentgroup {
-	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(246,246,246,.46)), to(rgba(145,149,159,.46)), color-stop(.49, rgba(160,162,167,.46)), color-stop(.51, rgba(130,133,142,.46))) !important;	
-}
-.v-touchkit-navbar > div > .v-button:active, .v-touchkit-horizontalcomponentgroup {
-	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(200,200,200,.55)), to(rgba(128,131,141,.55)), color-stop(.49, rgba(132,134,138,.55)), color-stop(.51, rgba(101,104,113,.55))) !important;	
-}
