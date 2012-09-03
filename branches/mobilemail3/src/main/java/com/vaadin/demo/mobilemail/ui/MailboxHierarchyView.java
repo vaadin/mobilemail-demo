@@ -7,9 +7,9 @@ import com.vaadin.addon.touchkit.ui.NavigationBar;
 import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickEvent;
 import com.vaadin.addon.touchkit.ui.NavigationView;
-import com.vaadin.addon.touchkit.ui.TouchKitApplication;
+import com.vaadin.addon.touchkit.ui.TouchKitUI;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
-import com.vaadin.demo.mobilemail.MobileMailApplication;
+import com.vaadin.demo.mobilemail.MobileMailUI;
 import com.vaadin.demo.mobilemail.data.AbstractPojo;
 import com.vaadin.demo.mobilemail.data.DummyDataUtil;
 import com.vaadin.demo.mobilemail.data.Folder;
@@ -18,8 +18,8 @@ import com.vaadin.demo.mobilemail.data.Message;
 import com.vaadin.demo.mobilemail.data.MessageStatus;
 import com.vaadin.demo.mobilemail.data.MobileMailContainer;
 import com.vaadin.demo.mobilemail.data.ParentFilter;
-import com.vaadin.terminal.Resource;
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.Resource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -121,10 +121,10 @@ public class MailboxHierarchyView extends NavigationView {
             }
         });
 
-        TouchKitApplication touchKitApplication = (TouchKitApplication) MobileMailApplication
+        TouchKitUI touchKitApplication = (TouchKitUI) MobileMailUI
                 .getCurrent();
-        if (touchKitApplication instanceof MobileMailApplication) {
-            MobileMailApplication app = (MobileMailApplication) touchKitApplication;
+        if (touchKitApplication instanceof MobileMailUI) {
+            MobileMailUI app = (MobileMailUI) touchKitApplication;
             if (app.isSmallScreenDevice()) {
                 /*
                  * For small screen devices we add shortcut to new message below

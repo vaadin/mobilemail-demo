@@ -2,11 +2,11 @@ package com.vaadin.demo.mobilemail.ui;
 
 import com.vaadin.addon.touchkit.ui.HorizontalComponentGroup;
 import com.vaadin.addon.touchkit.ui.Popover;
-import com.vaadin.demo.mobilemail.MobileMailApplication;
+import com.vaadin.demo.mobilemail.MobileMailUI;
 import com.vaadin.demo.mobilemail.data.Message;
-import com.vaadin.terminal.Page;
-import com.vaadin.terminal.Page.BrowserWindowResizeEvent;
-import com.vaadin.terminal.Page.BrowserWindowResizeListener;
+import com.vaadin.server.Page;
+import com.vaadin.server.Page.BrowserWindowResizeEvent;
+import com.vaadin.server.Page.BrowserWindowResizeListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -100,10 +100,10 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             height = Page.getCurrent().getBrowserWindowHeight();
         } else {
 
-            width = ((MobileMailApplication) MobileMailApplication.getCurrent())
+            width = ((MobileMailUI) MobileMailUI.getCurrent())
                     .getBrowser().getScreenWidth();
 
-            height = ((MobileMailApplication) MobileMailApplication
+            height = ((MobileMailUI) MobileMailUI
                     .getCurrent()).getBrowser().getScreenHeight();
 
             return false;
@@ -123,7 +123,7 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             popover.setContent(mailboxHierarchyView);
             popover.setClosable(true);
             popover.showRelativeTo(showMailboxHierarchyButton);
-            popover.setHeight(((MobileMailApplication) MobileMailApplication
+            popover.setHeight(((MobileMailUI) MobileMailUI
                     .getCurrent()).getBrowser().getScreenHeight() - 100,
                     Unit.PIXELS);
             popover.addListener(new CloseListener() {

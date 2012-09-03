@@ -17,33 +17,35 @@
 package com.vaadin.demo.mobilemail;
 
 import com.vaadin.Application;
-import com.vaadin.addon.touchkit.ui.TouchKitApplication;
-import com.vaadin.demo.mobilemail.ui.MobileMailWindow;
+import com.vaadin.addon.touchkit.ui.TouchKitUI;
+import com.vaadin.annotations.Theme;
 import com.vaadin.demo.mobilemail.ui.SmartphoneMainView;
 import com.vaadin.demo.mobilemail.ui.TabletMainView;
+import com.vaadin.server.Page;
+import com.vaadin.server.WebApplicationContext;
+import com.vaadin.server.WebBrowser;
+import com.vaadin.server.WrappedRequest;
 import com.vaadin.shared.ui.label.ContentMode;
-import com.vaadin.terminal.WrappedRequest;
-import com.vaadin.terminal.gwt.server.WebApplicationContext;
-import com.vaadin.terminal.gwt.server.WebBrowser;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
-public class MobileMailApplication extends TouchKitApplication {
+@Theme("mobilemail")
+public class MobileMailUI extends TouchKitUI {
 
-    static CustomizedSystemMessages customizedSystemMessages = new CustomizedSystemMessages();
-
-    static {
-        // reload on session expired
-        customizedSystemMessages.setSessionExpiredCaption("");
-        customizedSystemMessages.setSessionExpiredMessage("");
-    }
-
-    public static SystemMessages getSystemMessages() {
-        return customizedSystemMessages;
-    }
+    /*
+     * static CustomizedSystemMessages customizedSystemMessages = new
+     * CustomizedSystemMessages();
+     * 
+     * static { // reload on session expired
+     * customizedSystemMessages.setSessionExpiredCaption("");
+     * customizedSystemMessages.setSessionExpiredMessage(""); }
+     * 
+     * public static SystemMessages getSystemMessages() { return
+     * customizedSystemMessages; }
+     */
 
     private static final String MSG = "<h1>Ooops...</h1> You accessed this demo "
             + "with a browser that is currently not supported by TouchKit. "
@@ -55,17 +57,7 @@ public class MobileMailApplication extends TouchKitApplication {
             + "and gain popularity. Testing ought to work with desktop "
             + "Safari or Chrome as well.";
 
-    private UI mainRoot;
-
-    @Override
-    public void init() {
-        setMainWindow(new MobileMailWindow());
-        // getMainWindow().setIcon(new
-        // ThemeResource("VAADIN/themes/mobilemail/apple-touch-icon.png"));
-    }
-
-    private void setMainWindow(MobileMailWindow mobileMailWindow) {
-        mainRoot = mobileMailWindow;
+    public MobileMailUI() {
     }
 
     public WebBrowser getBrowser() {
@@ -86,17 +78,22 @@ public class MobileMailApplication extends TouchKitApplication {
     }
 
     @Override
-    public UI getTouchRoot(WrappedRequest request) {
+    protected void init(WrappedRequest request) {
         if (!(getBrowser().isTouchDevice() || getBrowser().isChrome() || getBrowser()
                 .isSafari())) {
-            mainRoot.setContent(getFallbackContent());
+            setContent(getFallbackContent());
         } else {
             if (isSmallScreenDevice()) {
-                mainRoot.setContent(new SmartphoneMainView());
+                setContent(new SmartphoneMainView());
             } else {
-                mainRoot.setContent(new TabletMainView());
+                setContent(new TabletMainView());
             }
         }
-        return mainRoot;
+        Page.getCurrent().setTitle("MobileMail");
+    }
+
+    @Override
+    public UI getTouchRoot(WrappedRequest request) {
+        return this;
     }
 }

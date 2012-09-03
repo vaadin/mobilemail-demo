@@ -45,7 +45,7 @@
 					<!-- This causes error messages (but build works) in phase "package": 
 						two processes would use the same debug port -->
 					<!--extraJvmArgs>-Xmx512M -Xss1024k -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8998</extraJvmArgs -->
-					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+					<extraJvmArgs>-Xmx1024M -Xss1024k</extraJvmArgs>
 					<!-- <runTarget>mobilemail</runTarget> -->
 					<!-- We are doing "inplace" but into subdir VAADIN/widgetsets. This way compatible with Vaadin eclipse plugin. -->
 					<webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
@@ -53,9 +53,9 @@
 					<noServer>true</noServer>
 					<runTarget>http://localhost:8080/mobilemail</runTarget>
 					<!-- Remove draftCompile when project is ready -->
-					<draftCompile>false</draftCompile>
+					<draftCompile>true</draftCompile>
 					<style>OBF</style>
-<!-- 					<force>true</force> -->
+					<force>true</force>
 					<compileReport>false</compileReport>
 				</configuration>
 				<executions>
@@ -93,23 +93,7 @@
 				</configuration>
 			</plugin>
 			
-			<plugin>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-maven-plugin</artifactId>
-				<version>1.0.2</version>
-				<executions>
-					<execution>
-						<configuration>
-							<!-- if you don't specify any modules, the plugin will find them -->
-							<!-- <modules> <module>com.vaadin.demo.mobilemail.gwt.ColorPickerWidgetSet</module> 
-								</modules> -->
-						</configuration>
-						<goals>
-							<goal>update-widgetset</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			
 
 			<!-- A simple Jetty test server at http://localhost:8080/mobilemail can 
 				be launched with the Maven goal jetty:run and stopped with jetty:stop -->

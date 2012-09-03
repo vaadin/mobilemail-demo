@@ -12,7 +12,7 @@ import com.vaadin.demo.mobilemail.data.Folder;
 import com.vaadin.demo.mobilemail.data.Message;
 import com.vaadin.demo.mobilemail.data.MessageField;
 import com.vaadin.demo.mobilemail.data.MessageStatus;
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;

@@ -11,11 +11,11 @@
 	</context-param>
 	<servlet>
 		<servlet-name>Vaadin Application Servlet</servlet-name>
-		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
+		<servlet-class>com.vaadin.server.ApplicationServlet</servlet-class>
 		<init-param>
 			<description>Vaadin application class to start</description>
-			<param-name>application</param-name>
-			<param-value>com.vaadin.demo.mobilemail.MobileMailApplication</param-value>
+			<param-name>UI</param-name>
+			<param-value>com.vaadin.demo.mobilemail.MobileMailUI</param-value>
 		</init-param>
 		<init-param>
 			<param-name>widgetset</param-name>
@@ -32,7 +32,7 @@
 			<description>
 			Application widgetset</description>
 			<param-name>fallbackWidgetset</param-name>
-			<param-value>com.vaadin.terminal.gwt.DefaultWidgetSet</param-value>
+			<param-value>com.vaadin.DefaultWidgetSet</param-value>
 		</init-param>
 
 	</servlet>

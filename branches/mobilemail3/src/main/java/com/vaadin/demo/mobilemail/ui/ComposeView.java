@@ -3,7 +3,7 @@ package com.vaadin.demo.mobilemail.ui;
 import com.vaadin.addon.touchkit.ui.EmailField;
 import com.vaadin.addon.touchkit.ui.NavigationBar;
 import com.vaadin.addon.touchkit.ui.Popover;
-import com.vaadin.demo.mobilemail.MobileMailApplication;
+import com.vaadin.demo.mobilemail.MobileMailUI;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -69,7 +69,7 @@ public class ComposeView extends Popover implements ClickListener {
     public void attach() {
         super.attach();
         if (!smartphone) {
-            if ((((MobileMailApplication) MobileMailApplication.getCurrent()))
+            if ((((MobileMailUI) MobileMailUI.getCurrent()))
                     .getBrowser().getScreenWidth() > 800) {
                 setWidth("80%");
             } else {
