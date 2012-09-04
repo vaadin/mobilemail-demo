@@ -28,7 +28,6 @@ import com.vaadin.server.WrappedRequest;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
@@ -92,8 +91,4 @@ public class MobileMailUI extends TouchKitUI {
         Page.getCurrent().setTitle("MobileMail");
     }
 
-    @Override
-    public UI getTouchRoot(WrappedRequest request) {
-        return this;
-    }
 }

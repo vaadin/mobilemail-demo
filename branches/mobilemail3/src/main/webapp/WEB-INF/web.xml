@@ -11,7 +11,7 @@
 	</context-param>
 	<servlet>
 		<servlet-name>Vaadin Application Servlet</servlet-name>
-		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+		<servlet-class>com.vaadin.addon.touchkit.server.TouchKitServlet</servlet-class>
 		<init-param>
 			<description>Vaadin application class to start</description>
 			<param-name>UI</param-name>
