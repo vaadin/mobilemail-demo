@@ -21,6 +21,7 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
@@ -30,6 +31,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.Table.ColumnHeaderMode;
 import com.vaadin.ui.themes.Reindeer;
 
 public class MessageHierarchyView extends NavigationView implements
@@ -114,6 +116,7 @@ public class MessageHierarchyView extends NavigationView implements
         }
     }
 
+    @SuppressWarnings("serial")
     public MessageHierarchyView(final NavigationManager nav, final Folder folder) {
         addStyleName("message-list");
 
@@ -133,7 +136,7 @@ public class MessageHierarchyView extends NavigationView implements
         }
 
         editBtn = new Button("Edit");
-        editBtn.addListener(new Button.ClickListener() {
+        editBtn.addClickListener(new Button.ClickListener() {
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -161,7 +164,8 @@ public class MessageHierarchyView extends NavigationView implements
                     editMode = true;
                     table.select(null);
                     table.setSelectable(false);
-                    table.setVisibleColumns(new Object[] { "new", "name" });
+                    table.setVisibleColumns(new Object[] { "selected", "new",
+                            "name" });
                     setToolbar(createEditToolbar());
 
                     table.setColumnExpandRatio("name", 1);
@@ -186,7 +190,7 @@ public class MessageHierarchyView extends NavigationView implements
         table.setSelectable(true);
         table.setMultiSelect(false);
         table.setNullSelectionAllowed(false);
-        table.setColumnHeaderMode(Table.COLUMN_HEADER_MODE_HIDDEN);
+        table.setColumnHeaderMode(ColumnHeaderMode.HIDDEN);
         table.setSizeFull();
 
         // Add a selected colum
@@ -200,10 +204,10 @@ public class MessageHierarchyView extends NavigationView implements
                     final CheckBox cb = new CheckBox();
                     cb.setImmediate(true);
                     cb.setStyleName("selected-checkbox");
-                    cb.addListener(new Property.ValueChangeListener() {
+                    cb.addValueChangeListener(new Property.ValueChangeListener() {
                         @Override
                         public void valueChange(ValueChangeEvent event) {
-                            if (cb.booleanValue()) {
+                            if (cb.getValue()) {
                                 selected.add((Message) itemId);
                             } else {
                                 selected.remove(itemId);
@@ -236,7 +240,7 @@ public class MessageHierarchyView extends NavigationView implements
                     Object columnId) {
                 Message msg = (Message) itemId;
                 if (msg.getStatus() == MessageStatus.NEW) {
-                    Label lbl = new Label("&nbsp;", Label.CONTENT_XHTML);
+                    Label lbl = new Label("&nbsp;", ContentMode.XHTML);
                     lbl.setStyleName("new-marker");
                     lbl.setWidth("-1px");
                     return lbl;
@@ -254,19 +258,19 @@ public class MessageHierarchyView extends NavigationView implements
                     Object columnId) {
                 final Message m = (Message) itemId;
                 MessageButton btn = new MessageButton(m);
-                btn.addListener(MessageHierarchyView.this);
+                btn.addLayoutClickListener(MessageHierarchyView.this);
                 return btn;
             }
         });
         table.setColumnExpandRatio("name", 1);
 
         if (editMode) {
-            table.setVisibleColumns(new Object[] { "new", "name" });
+            table.setVisibleColumns(new Object[] { "selected", "new", "name" });
         } else {
-            table.setVisibleColumns(new Object[] { "new", "name" });
+            table.setVisibleColumns(new Object[] {  "new", "name" });
         }
 
-        table.addListener(new ItemClickListener() {
+        table.addItemClickListener(new ItemClickListener() {
             @Override
             public void itemClick(ItemClickEvent event) {
                 Message msg = (Message) event.getItemId();
@@ -293,7 +297,7 @@ public class MessageHierarchyView extends NavigationView implements
         if (editMode) {
             table.select(null);
             CheckBox cb = messageSelectMap.get(msg);
-            cb.setValue(!cb.booleanValue());
+            cb.setValue(!cb.getValue());
         } else {
             table.select(msg);
             if (!editMode || !isSmartphone()) {
