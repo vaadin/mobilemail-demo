@@ -150,8 +150,6 @@ public class MessageHierarchyView extends NavigationView implements
                     table.setVisibleColumns(new Object[] { "new", "name" });
                     setToolbar(MailboxHierarchyView.createToolbar());
 
-                    table.setColumnExpandRatio("name", 1);
-
                 } else {
                     for (CheckBox cb : messageSelectMap.values()) {
                         cb.setValue(false);
@@ -168,7 +166,6 @@ public class MessageHierarchyView extends NavigationView implements
                             "name" });
                     setToolbar(createEditToolbar());
 
-                    table.setColumnExpandRatio("name", 1);
                 }
 
                 // Enable disable message view
@@ -231,7 +228,6 @@ public class MessageHierarchyView extends NavigationView implements
                 return messageSelectMap.get(itemId);
             }
         });
-        table.setColumnWidth("selected", 30);
 
         // Add a new item column
         table.addGeneratedColumn("new", new Table.ColumnGenerator() {
