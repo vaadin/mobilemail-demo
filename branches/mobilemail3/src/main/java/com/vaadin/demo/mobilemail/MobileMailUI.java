@@ -16,18 +16,18 @@
 
 package com.vaadin.demo.mobilemail;
 
-import com.vaadin.Application;
 import com.vaadin.addon.touchkit.ui.TouchKitUI;
 import com.vaadin.annotations.Theme;
 import com.vaadin.demo.mobilemail.ui.SmartphoneMainView;
 import com.vaadin.demo.mobilemail.ui.TabletMainView;
 import com.vaadin.server.Page;
-import com.vaadin.server.ServletApplicationContext;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WebBrowser;
 import com.vaadin.server.WrappedRequest;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
@@ -60,8 +60,7 @@ public class MobileMailUI extends TouchKitUI {
     }
 
     public WebBrowser getBrowser() {
-        ServletApplicationContext context = (ServletApplicationContext) Application
-                .getCurrent().getContext();
+        VaadinSession context = UI.getCurrent().getSession();
         return context.getBrowser();
     }
 
