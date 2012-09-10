@@ -71,7 +71,7 @@ public class MobileMailUI extends TouchKitUI {
 
     private ComponentContainer getFallbackContent() {
         VerticalLayout view = new VerticalLayout();
-        view.addComponent(new Label(MSG, ContentMode.XHTML));
+        view.addComponent(new Label(MSG, ContentMode.HTML));
         return view;
     }
 

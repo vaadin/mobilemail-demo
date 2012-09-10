@@ -236,7 +236,7 @@ public class MessageHierarchyView extends NavigationView implements
                     Object columnId) {
                 Message msg = (Message) itemId;
                 if (msg.getStatus() == MessageStatus.NEW) {
-                    Label lbl = new Label("&nbsp;", ContentMode.XHTML);
+                    Label lbl = new Label("&nbsp;", ContentMode.HTML);
                     lbl.setStyleName("new-marker");
                     lbl.setWidth("-1px");
                     return lbl;
@@ -263,7 +263,7 @@ public class MessageHierarchyView extends NavigationView implements
         if (editMode) {
             table.setVisibleColumns(new Object[] { "selected", "new", "name" });
         } else {
-            table.setVisibleColumns(new Object[] {  "new", "name" });
+            table.setVisibleColumns(new Object[] { "new", "name" });
         }
 
         table.addItemClickListener(new ItemClickListener() {

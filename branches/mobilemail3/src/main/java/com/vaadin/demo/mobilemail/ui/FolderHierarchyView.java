@@ -126,7 +126,7 @@ public class FolderHierarchyView extends NavigationView {
                             spacing.append("<div style='float:left; width:32px'>&nbsp;</div>");
                         }
                         layout.addComponent(new Label(spacing.toString(),
-                                ContentMode.XHTML));
+                                ContentMode.HTML));
                         layout.addComponent(btn);
                         return layout;
                     }
