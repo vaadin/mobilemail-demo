@@ -29,8 +29,6 @@ public class TabletMainView extends HorizontalLayout implements MainView,
 
     private boolean lastOrientationHorizontal;
 
-    private boolean added;
-
     public TabletMainView() {
         setSizeFull();
         addStyleName("tablet");
@@ -112,6 +110,7 @@ public class TabletMainView extends HorizontalLayout implements MainView,
 
     }
 
+    @SuppressWarnings("serial")
     @Override
     public void buttonClick(ClickEvent event) {
         if (event.getButton() == showMailboxHierarchyButton) {
@@ -142,10 +141,6 @@ public class TabletMainView extends HorizontalLayout implements MainView,
 
     @Override
     public void browserWindowResized(BrowserWindowResizeEvent event) {
-        if (!added && Page.getCurrent() != null) {
-            added = true;
-            Page.getCurrent().addBrowserWindowResizeListener(this);
-        }
         if (getUI() != null) {
             if (isHorizontal() != lastOrientationHorizontal) {
                 setOrientation();

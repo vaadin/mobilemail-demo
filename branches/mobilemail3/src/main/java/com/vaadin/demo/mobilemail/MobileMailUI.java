@@ -88,6 +88,7 @@ public class MobileMailUI extends TouchKitUI {
             }
         }
         Page.getCurrent().setTitle("MobileMail");
+        setImmediate(true);
     }
 
 }
