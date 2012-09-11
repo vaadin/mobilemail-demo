@@ -300,7 +300,9 @@ public class MessageView extends NavigationView implements ClickListener {
         }
         if (event.getButton() == composeButton) {
             ComposeView composeView = new ComposeView(smartphone);
-            composeView.showRelativeTo(event.getButton());
+            getUI().addWindow(composeView);
+            composeView.bringToFront();
+            //composeView.showRelativeTo(event.getButton());
             return;
         }
         if (event.getButton() == nextButton) {
