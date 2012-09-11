@@ -121,12 +121,7 @@ public class FolderHierarchyView extends NavigationView {
                         return btn;
                     } else {
                         CssLayout layout = new CssLayout();
-                        StringBuilder spacing = new StringBuilder();
-                        for (int l = 0; l < level; l++) {
-                            spacing.append("<div style='float:left; width:32px'>&nbsp;</div>");
-                        }
-                        layout.addComponent(new Label(spacing.toString(),
-                                ContentMode.HTML));
+                        layout.addStyleName("indent-layout-level" + level);
                         layout.addComponent(btn);
                         return layout;
                     }

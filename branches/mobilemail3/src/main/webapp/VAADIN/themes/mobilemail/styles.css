@@ -280,3 +280,16 @@
 	display: block !important;
 	line-height: 23px !important;
 }
+
+.indent-layout-level1 {
+	padding-left: 25px;
+}
+.indent-layout-level2 {
+    padding-left: 50px;
+}
+.indent-layout-level3 {
+    padding-left: 75px;
+}
+.indent-layout-level4 {
+    padding-left: 100px;
+}
