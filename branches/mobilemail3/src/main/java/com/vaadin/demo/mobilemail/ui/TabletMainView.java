@@ -136,9 +136,10 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             popover.setContent(popoverLayout);
             
             popover.setClosable(true);
+            popover.setHeight(Page.getCurrent().getBrowserWindowHeight() - 100,
+            		Unit.PIXELS);
             popover.showRelativeTo(showMailboxHierarchyButton);
-            popover.setHeight(((MobileMailUI) MobileMailUI.getCurrent())
-                    .getBrowser().getScreenHeight() - 100, Unit.PIXELS);
+
             popover.addCloseListener(new CloseListener() {
                 @Override
                 public void windowClose(CloseEvent e) {
