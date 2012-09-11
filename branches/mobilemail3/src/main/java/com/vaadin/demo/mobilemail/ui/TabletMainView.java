@@ -11,6 +11,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
@@ -52,12 +53,17 @@ public class TabletMainView extends HorizontalLayout implements MainView,
              */
             if (mailboxHierarchyView.getParent() != null) {
                 Component parent2 = mailboxHierarchyView.getParent();
-                if (parent2 instanceof Window) {
-                    Window window = (Window) parent2;
-                    window.setContent(null);
-                    if (window.getUI() != null) {
-                        window.getUI().removeWindow(window);
-                    }
+                while (parent2 != null) {
+	                if (parent2 instanceof Window) {
+	                    Window window = (Window) parent2;
+	                    window.setContent(null);
+	                    if (window.getUI() != null) {
+	                        window.getUI().removeWindow(window);
+	                    }
+	                    break;
+	                } else {
+	                	parent2 = parent2.getParent();
+	                }
                 }
             }
 
@@ -119,7 +125,12 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             if (parent2 != null && parent2 instanceof Popover) {
                 ((Popover) parent2).setContent(null);
             }
-            popover.setContent(mailboxHierarchyView);
+            CssLayout popoverLayout = new CssLayout();
+            popoverLayout.setHeight("100%");
+            popoverLayout.setWidth("300px");
+            popoverLayout.addComponent(mailboxHierarchyView);
+            popover.setContent(popoverLayout);
+            
             popover.setClosable(true);
             popover.showRelativeTo(showMailboxHierarchyButton);
             popover.setHeight(((MobileMailUI) MobileMailUI.getCurrent())
