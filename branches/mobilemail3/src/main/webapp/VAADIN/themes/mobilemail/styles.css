@@ -273,12 +273,6 @@
 	border-color: #ddd;
 }
 
-.v-touchkit-horizontalbuttongroup .v-button-wrap,
-.v-touchkit-horizontalbuttongroup .v-button-caption {
-	display: block !important;
-	line-height: 23px !important;
-}
-
 .indent-layout-level1 {
 	padding-left: 25px;
 }
