@@ -3,7 +3,7 @@ package com.vaadin.demo.mobilemail.ui;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import com.vaadin.addon.touchkit.ui.HorizontalComponentGroup;
+import com.vaadin.addon.touchkit.ui.HorizontalButtonGroup;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.addon.touchkit.ui.Toolbar;
@@ -34,7 +34,7 @@ public class MessageView extends NavigationView implements ClickListener {
     private final CssLayout layout = new CssLayout();
     private final CssLayout detailsLayout = new CssLayout();
 
-    private final HorizontalComponentGroup navigationActions = new HorizontalComponentGroup();
+    private final HorizontalButtonGroup navigationActions = new HorizontalButtonGroup();
     private Button nextButton;
     private Button prevButton;
     private Button markAsUnreadButton;
@@ -140,7 +140,7 @@ public class MessageView extends NavigationView implements ClickListener {
      *         can assign it where appropriate (tablet and smartphone views want
      *         to locate this differently).
      */
-    public HorizontalComponentGroup getNavigationLayout() {
+    public HorizontalButtonGroup getNavigationLayout() {
         return navigationActions;
     }
 

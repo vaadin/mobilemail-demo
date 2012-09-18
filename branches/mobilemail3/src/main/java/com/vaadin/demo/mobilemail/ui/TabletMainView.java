@@ -1,6 +1,6 @@
 package com.vaadin.demo.mobilemail.ui;
 
-import com.vaadin.addon.touchkit.ui.HorizontalComponentGroup;
+import com.vaadin.addon.touchkit.ui.HorizontalButtonGroup;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.demo.mobilemail.MobileMailUI;
 import com.vaadin.demo.mobilemail.data.Message;
@@ -39,7 +39,7 @@ public class TabletMainView extends HorizontalLayout implements MainView,
     public void attach() {
         super.attach();
         
-        HorizontalComponentGroup hc = new HorizontalComponentGroup();
+        HorizontalButtonGroup hc = new HorizontalButtonGroup();
         showMailboxHierarchyButton = new Button();
         showMailboxHierarchyButton.addClickListener(this);
         hc.addComponent(showMailboxHierarchyButton);

@@ -273,8 +273,8 @@
 	border-color: #ddd;
 }
 
-.v-touchkit-horizontalcomponentgroup .v-button-wrap,
-.v-touchkit-horizontalcomponentgroup .v-button-caption {
+.v-touchkit-horizontalbuttongroup .v-button-wrap,
+.v-touchkit-horizontalbuttongroup .v-button-caption {
 	display: block !important;
 	line-height: 23px !important;
 }
