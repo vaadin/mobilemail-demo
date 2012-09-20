@@ -113,7 +113,7 @@ public class MailboxHierarchyView extends NavigationView {
         toolbar.setCaption("Updated "
                 + formatter.format(Calendar.getInstance().getTime()));
 
-        refresh.addListener(new Button.ClickListener() {
+        refresh.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
                 toolbar.setCaption("Updated "
@@ -121,8 +121,7 @@ public class MailboxHierarchyView extends NavigationView {
             }
         });
 
-        TouchKitUI touchKitApplication = (TouchKitUI) MobileMailUI
-                .getCurrent();
+        TouchKitUI touchKitApplication = (TouchKitUI) MobileMailUI.getCurrent();
         if (touchKitApplication instanceof MobileMailUI) {
             MobileMailUI app = (MobileMailUI) touchKitApplication;
             if (app.isSmallScreenDevice()) {

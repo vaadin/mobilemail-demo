@@ -79,7 +79,7 @@ public class MessageView extends NavigationView implements ClickListener {
         moveButton = new Button(null, this);
         composeButton = new Button(null, this);
         deleteButton = new Button(null, this);
-        replyButton = new Button(null, new Button.ClickListener() {
+        replyButton = new Button(null, new ClickListener() {
 
             @Override
             public void buttonClick(ClickEvent event) {
@@ -197,7 +197,7 @@ public class MessageView extends NavigationView implements ClickListener {
             Button button = new Button("Details");
             button.setStyleName(BaseTheme.BUTTON_LINK);
             button.addStyleName("details-link");
-            button.addListener(new Button.ClickListener() {
+            button.addClickListener(new ClickListener() {
                 @Override
                 public void buttonClick(ClickEvent event) {
                     detailsLayout.setVisible(!detailsLayout.isVisible());
@@ -302,7 +302,7 @@ public class MessageView extends NavigationView implements ClickListener {
             ComposeView composeView = new ComposeView(smartphone);
             getUI().addWindow(composeView);
             composeView.bringToFront();
-            //composeView.showRelativeTo(event.getButton());
+            // composeView.showRelativeTo(event.getButton());
             return;
         }
         if (event.getButton() == nextButton) {
