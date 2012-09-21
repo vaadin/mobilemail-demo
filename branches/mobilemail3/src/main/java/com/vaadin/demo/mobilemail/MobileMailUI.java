@@ -21,9 +21,9 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.demo.mobilemail.ui.SmartphoneMainView;
 import com.vaadin.demo.mobilemail.ui.TabletMainView;
 import com.vaadin.server.Page;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WebBrowser;
-import com.vaadin.server.WrappedRequest;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.Label;
@@ -76,7 +76,7 @@ public class MobileMailUI extends TouchKitUI {
     }
 
     @Override
-    protected void init(WrappedRequest request) {
+    protected void init(VaadinRequest request) {
         if (!(getBrowser().isTouchDevice() || getBrowser().isChrome() || getBrowser()
                 .isSafari())) {
             setContent(getFallbackContent());
