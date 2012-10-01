@@ -22,7 +22,7 @@ import com.vaadin.demo.mobilemail.ui.SmartphoneMainView;
 import com.vaadin.demo.mobilemail.ui.TabletMainView;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinSession;
+import com.vaadin.server.VaadinServiceSession;
 import com.vaadin.server.WebBrowser;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.ComponentContainer;
@@ -60,7 +60,7 @@ public class MobileMailUI extends TouchKitUI {
     }
 
     public WebBrowser getBrowser() {
-        VaadinSession context = UI.getCurrent().getSession();
+        VaadinServiceSession context = UI.getCurrent().getSession();
         return context.getBrowser();
     }
 
