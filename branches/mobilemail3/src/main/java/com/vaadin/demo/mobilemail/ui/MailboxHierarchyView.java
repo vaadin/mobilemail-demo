@@ -7,7 +7,6 @@ import com.vaadin.addon.touchkit.ui.NavigationBar;
 import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickEvent;
 import com.vaadin.addon.touchkit.ui.NavigationView;
-import com.vaadin.addon.touchkit.ui.TouchKitUI;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
 import com.vaadin.demo.mobilemail.MobileMailUI;
 import com.vaadin.demo.mobilemail.data.AbstractPojo;
@@ -26,6 +25,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
 
 /**
  * Displays accounts, mailboxes, message list hierarchically
@@ -121,7 +121,7 @@ public class MailboxHierarchyView extends NavigationView {
             }
         });
 
-        TouchKitUI touchKitApplication = (TouchKitUI) MobileMailUI.getCurrent();
+        UI touchKitApplication = (UI) MobileMailUI.getCurrent();
         if (touchKitApplication instanceof MobileMailUI) {
             MobileMailUI app = (MobileMailUI) touchKitApplication;
             if (app.isSmallScreenDevice()) {

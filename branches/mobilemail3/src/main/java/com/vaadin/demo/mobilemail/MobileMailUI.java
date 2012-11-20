@@ -16,13 +16,12 @@
 
 package com.vaadin.demo.mobilemail;
 
-import com.vaadin.addon.touchkit.ui.TouchKitUI;
 import com.vaadin.annotations.Theme;
 import com.vaadin.demo.mobilemail.ui.SmartphoneMainView;
 import com.vaadin.demo.mobilemail.ui.TabletMainView;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServiceSession;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WebBrowser;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.ComponentContainer;
@@ -32,7 +31,7 @@ import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
 @Theme("mobilemail")
-public class MobileMailUI extends TouchKitUI {
+public class MobileMailUI extends UI {
 
     /*
      * static CustomizedSystemMessages customizedSystemMessages = new
@@ -60,7 +59,7 @@ public class MobileMailUI extends TouchKitUI {
     }
 
     public WebBrowser getBrowser() {
-        VaadinServiceSession context = UI.getCurrent().getSession();
+        VaadinSession context = UI.getCurrent().getSession();
         return context.getBrowser();
     }
 

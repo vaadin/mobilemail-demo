@@ -303,7 +303,7 @@ public class MessageHierarchyView extends NavigationView implements
     }
 
     private void setMessage(final Message message) {
-        ComponentContainer cc = getUI().getContent();
+        ComponentContainer cc = (ComponentContainer) getUI().getContent();
         if (cc instanceof MainView) {
             MainView mainView = (MainView) cc;
             mainView.setMessage(message, this);
@@ -312,7 +312,7 @@ public class MessageHierarchyView extends NavigationView implements
 
     private void setMessageViewEnabled(boolean enabled) {
         if (!isSmartphone()) {
-            ComponentContainer cc = getUI().getContent();
+            ComponentContainer cc = (ComponentContainer) getUI().getContent();
             TabletMainView tmv = (TabletMainView) cc;
             tmv.setEnabled(enabled);
         }
