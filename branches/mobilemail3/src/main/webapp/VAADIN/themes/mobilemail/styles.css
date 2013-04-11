@@ -71,12 +71,18 @@
 
 .message-layout .details-link {
 	float: right;
+    position: absolute;
+    top: 0px;
+}
+
+.message-layout .details-link .v-button-caption {
+    line-height: 45px;
+    height: 45px;
 }
 
 .message-layout .mark-as-unread-button {
-	float: right;
-	position: relative;
-	top: 4px;
+    position: absolute;
+    right: 20px;
 }
 
 .selected-checkbox {
