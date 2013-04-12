@@ -81,8 +81,7 @@
 }
 
 .message-layout .mark-as-unread-button {
-    position: absolute;
-    right: 20px;
+    float: right;
 }
 
 .selected-checkbox {
