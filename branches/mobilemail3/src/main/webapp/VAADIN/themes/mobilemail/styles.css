@@ -1,6 +1,11 @@
-/* @override http://localhost:8080/mobilemail/VAADIN/themes/mobilemail/styles.css */
-
-@import "../base/styles.css";
+/**
+ * This TouchKit example is themed in standard Vaadin way. 
+ * Note, that themes work bit like in Portlets, the "base theme" 
+ * is added by TouchKit, and there is no need to for @import in 
+ * this theme css.
+ *
+ * For optimal (GWT packaged) theme example, see Vornitologist.
+ */
 
 .v-touchkit-navbar .v-touchkit-componentgroup-h {
 	white-space: nowrap;
