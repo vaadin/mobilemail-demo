@@ -5,12 +5,12 @@
 	<groupId>com.vaadin.demo</groupId>
 	<artifactId>mobilemail</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>Mobile Mail Demo Application</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<vaadin.version>7.0.3</vaadin.version>
+		<vaadin.version>7.0.4</vaadin.version>
 		<snapshot.repository.url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</snapshot.repository.url>
 	</properties>
 
@@ -45,7 +45,8 @@
 					<!--extraJvmArgs>-Xmx512M -Xss1024k -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8998</extraJvmArgs -->
 					<extraJvmArgs>-Xmx1024M -Xss1024k</extraJvmArgs>
 					<!-- <runTarget>mobilemail</runTarget> -->
-					<!-- We are doing "inplace" but into subdir VAADIN/widgetsets. This way compatible with Vaadin eclipse plugin. -->
+					<!-- We are doing "inplace" but into subdir VAADIN/widgetsets. This 
+						way compatible with Vaadin eclipse plugin. -->
 					<webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
 					<hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
 					<noServer>true</noServer>
@@ -55,6 +56,8 @@
 					<style>OBF</style>
 					<force>true</force>
 					<compileReport>false</compileReport>
+					<persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
+					<deploy>${project.build.directory}/gwt-deploy</deploy>
 				</configuration>
 				<executions>
 					<execution>
@@ -64,7 +67,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- As we are doing "inplace" GWT compilatio, ensure the widgetset -->
 			<!-- directory is cleaned properly -->
 			<plugin>
@@ -78,8 +81,8 @@
 					</filesets>
 				</configuration>
 			</plugin>
-			
-			
+
+
 
 			<!-- A simple Jetty test server at http://localhost:8080/mobilemail can 
 				be launched with the Maven goal jetty:run and stopped with jetty:stop -->
@@ -102,7 +105,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -181,25 +185,25 @@
 		<dependency>
 			<groupId>com.vaadin.addon</groupId>
 			<artifactId>vaadin-touchkit-agpl</artifactId>
-			<version>3.0.0-SNAPSHOT</version>
+			<version>3.0.0-beta1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-themes</artifactId>
 			<version>${vaadin.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
-		  <groupId>de.sven-jacobs</groupId>
-		  <artifactId>loremipsum</artifactId>
-		  <version>1.0</version>
+			<groupId>de.sven-jacobs</groupId>
+			<artifactId>loremipsum</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 
