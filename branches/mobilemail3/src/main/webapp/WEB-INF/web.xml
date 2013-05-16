@@ -10,34 +10,11 @@
 		<param-value>false</param-value>
 	</context-param>
 	<servlet>
-		<servlet-name>Vaadin Application Servlet</servlet-name>
-		<servlet-class>com.vaadin.addon.touchkit.server.TouchKitServlet</servlet-class>
-		<init-param>
-			<description>Vaadin application class to start</description>
-			<param-name>UI</param-name>
-			<param-value>com.vaadin.demo.mobilemail.MobileMailUI</param-value>
-		</init-param>
-		<init-param>
-			<param-name>widgetset</param-name>
-			<param-value>com.vaadin.demo.mobilemail.gwt.MobileMailWidgetSet</param-value>
-		</init-param>
-		<!-- Also configure fallback app + widgetset for non webkit browsers -->
-		<init-param>
-			<description>
-			Vaadin fallback application class to start</description>
-			<param-name>fallbackApplication</param-name>
-			<param-value>com.vaadin.demo.mobilemail.FallbackApplication</param-value>
-		</init-param>
-		<init-param>
-			<description>
-			Application widgetset</description>
-			<param-name>fallbackWidgetset</param-name>
-			<param-value>com.vaadin.DefaultWidgetSet</param-value>
-		</init-param>
-
+		<servlet-name>MobileMailServlet</servlet-name>
+		<servlet-class>com.vaadin.demo.mobilemail.MobileMailServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Vaadin Application Servlet</servlet-name>
+		<servlet-name>MobileMailServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
