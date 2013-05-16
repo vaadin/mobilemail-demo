@@ -188,6 +188,12 @@
 			<version>3.0.0-beta1</version>
 		</dependency>
 		<dependency>
+			<!-- This comes also transitive, but fix version here -->
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-server</artifactId>
+			<version>${vaadin.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client-compiled</artifactId>
 			<version>${vaadin.version}</version>
