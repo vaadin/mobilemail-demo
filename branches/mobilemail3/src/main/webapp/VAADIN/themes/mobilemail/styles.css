@@ -13,9 +13,14 @@
 
 .v-table-body {
 	border: none;
-	border-radius: 5px;
 	overflow: hidden;
 }
+
+.v-touchkit-popover .v-table-body {
+	border-radius: 5px;
+}
+
+
 
 .tablet .mailboxes {
 	border-right: 1px solid rgba(0,0,0,.3);
@@ -31,9 +36,14 @@
 	background: #fff;
 }
 
+.mailboxes .v-table-body {
+	border: none;
+}
+
 .mailboxes .v-table .v-touchkit-navbutton {
 	border: none;
 	padding: 0 12px;
+	margin: -5px 0;
 }
 
 .mailboxes .v-table .v-touchkit-navbutton:focus,
@@ -93,8 +103,8 @@
 	margin: 32px 0 0 10px;
 }
 
-.v-table-cell-content {
-	border:0;
+.v-table .v-table-cell-content {
+	border: none;
 }
 
 .v-table-cell-wrapper {
@@ -122,8 +132,9 @@
 	color: #fff !important;
 }
 
-.v-table-row,.v-table-row-odd {
-	background: none;
+.v-table .v-table-row,
+.v-table .v-table-row-odd {
+	background: transparent;
 	cursor: default;
 }
 
@@ -167,14 +178,16 @@
 	color: #1b699f;
 }
 
-.from-button {
+.v-app .from-button {
 	border: 1px solid #87a2bf;
-	border-radius: 10px;
+	-webkit-border-radius: 14px;
+	-moz-border-radius: 14px;
+	border-radius: 14px;
 	background: #dce6ef -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dee8f1), to(#cedae5));
 	line-height: 1;
-	padding: 1px 7px;
+	padding: 0 7px 5px;
 	margin-left: 6px;
-	vertical-align: 3px;
+	margin-bottom: -2px
 }
 
 .from-button .v-button-caption,
@@ -283,15 +296,93 @@
 	border-color: #ddd;
 }
 
-.indent-layout-level1 {
-	padding-left: 25px;
+.v-table .indent-layout-level1 .v-touchkit-navbutton {
+	padding-left: 35px;
 }
-.indent-layout-level2 {
-    padding-left: 50px;
+.v-table .indent-layout-level2 .v-touchkit-navbutton {
+    padding-left: 70px;
 }
-.indent-layout-level3 {
-    padding-left: 75px;
+.v-table .indent-layout-level3 .v-touchkit-navbutton {
+    padding-left: 105px;
 }
-.indent-layout-level4 {
-    padding-left: 100px;
+.v-table .indent-layout-level4 .v-touchkit-navbutton {
+    padding-left: 140px;
+}
+
+.v-app .v-button.blue {
+	background-color: #1777EE;
+	border-color: #2762AA;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .3);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .3);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .3);
+}
+
+.v-app .v-button.blue:active {
+	background-color: #1062c9;
+}
+
+.v-app .v-button-reply .v-button-wrap {
+	background-color: #1777EE;
+	color: #fff;
+}
+
+.v-touchkit-navbar .v-button img.v-icon {
+	width: 24px;
+	height: 24px;
+	margin-top: 2px;
+}
+
+
+
+/* TODO these below should be fixed in TouchKit theme */
+
+.v-touchkit-navbar, 
+.v-touchkit-navpanel-placeholder > div, 
+.v-touchkit-popover.v-touchkit-fullscreen .v-touchkit-navpanel-placeholder > div {
+	height: 44px !important;
+}
+
+.v-loading-indicator, .v-loading-indicator-delay, .v-loading-indicator-wait {
+	background-size: 25px 25px;
+}
+
+.v-touchkit-navbar .v-button:active .v-button-wrap:after,
+.v-touchkit-toolbar .v-button:active .v-button-wrap:after {
+	display: none;
+}
+
+.v-touchkit-navbar .v-button-no-decoration:active .v-button-wrap:after,
+.v-touchkit-toolbar .v-button-no-decoration:active .v-button-wrap:after {
+	display: block;
+	top: 50%;
+	left: 50%;
+	background-color: rgba(255,255,255,.5);
+	box-shadow: 0 0 50px 30px #fff;
+	width: 1px;
+	height: 1px;
+	border-radius: 14px;
+}
+
+.v-touchkit-toolbar .v-button-no-decoration:active .v-button-wrap {
+	background: transparent;
+}
+
+.v-app .v-touchkit-popover.v-touchkit-relative .v-touchkit-navbar .v-button-no-decoration {
+	-webkit-box-shadow: none;
+}
+
+
+.v-touchkit-navbutton-back:active {
+	-webkit-border-image: url(graphics/back-button-down.png) 0 6 0 13 stretch stretch;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+	.v-touchkit-navbutton-back:active {
+		-webkit-border-image: url(graphics/back-button-down-2x.png) 0 6 0 13 stretch stretch;
+	}
+}
+
+
+.v-touchkit-componentgroup-row:first-child {
+	border-radius: 10px 10px 0 0;
 }

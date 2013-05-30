@@ -39,7 +39,10 @@ public class MailboxHierarchyView extends NavigationView {
     private final Resource mailboxIcon = new ThemeResource(
             "../runo/icons/64/globe.png");
 
-    static Resource refreshIcon = new ThemeResource("graphics/reload-icon.png");
+    static Resource reloadIcon = new ThemeResource("graphics/reload-icon-2x.png");
+    static Resource reloadIconWhite = new ThemeResource("graphics/reload-icon-white-2x.png");
+
+	private static Button reload;
 
     public MailboxHierarchyView(final MailboxHierarchyManager nav) {
 
@@ -103,17 +106,18 @@ public class MailboxHierarchyView extends NavigationView {
 
         final NavigationBar toolbar = new NavigationBar();
 
-        Button refresh = new Button();
-        refresh.setIcon(refreshIcon);
-        refresh.addStyleName("no-decoration");
+        reload = new Button();
+        reload.setIcon(reloadIcon);
+        reload.addStyleName("reload");
+        reload.addStyleName("no-decoration");
 
-        toolbar.setLeftComponent(refresh);
+        toolbar.setLeftComponent(reload);
 
         final SimpleDateFormat formatter = new SimpleDateFormat("M/d/yy hh:mm");
         toolbar.setCaption("Updated "
                 + formatter.format(Calendar.getInstance().getTime()));
 
-        refresh.addClickListener(new ClickListener() {
+        reload.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
                 toolbar.setCaption("Updated "
@@ -137,7 +141,8 @@ public class MailboxHierarchyView extends NavigationView {
                     }
                 };
                 Button button = new Button(null, showComposeview);
-                button.setIcon(new ThemeResource("graphics/compose-icon.png"));
+                button.addStyleName("compose");
+                button.setIcon(new ThemeResource("graphics/compose-icon-2x.png"));
                 toolbar.setRightComponent(button);
                 button.addStyleName("no-decoration");
             }
@@ -145,4 +150,12 @@ public class MailboxHierarchyView extends NavigationView {
 
         return toolbar;
     }
+
+	public void setOrientation(boolean horizontal) {
+		if(horizontal) {
+			reload.setIcon(reloadIcon);
+		} else {
+			reload.setIcon(reloadIconWhite);
+		}
+	}
 }

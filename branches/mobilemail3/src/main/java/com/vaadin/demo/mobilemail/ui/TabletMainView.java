@@ -88,6 +88,7 @@ public class TabletMainView extends HorizontalLayout implements MainView,
                     .getCurrentComponent().getCaption());
         }
 
+        mailboxHierarchyView.setOrientation(horizontal);
         showMailboxHierarchyButton.setVisible(!horizontal);
         lastOrientationHorizontal = horizontal;
     }

@@ -190,7 +190,7 @@ public class MessageHierarchyView extends NavigationView implements
         table.setColumnHeaderMode(ColumnHeaderMode.HIDDEN);
         table.setSizeFull();
 
-        // Add a selected colum
+        // Add a selected column
         table.addGeneratedColumn("selected", new Table.ColumnGenerator() {
             private static final long serialVersionUID = 1L;
 
