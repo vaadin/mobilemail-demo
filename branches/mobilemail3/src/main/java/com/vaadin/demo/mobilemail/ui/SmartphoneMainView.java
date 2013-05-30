@@ -19,6 +19,7 @@ public class SmartphoneMainView extends MailboxHierarchyManager implements
     public SmartphoneMainView() {
         setWidth("100%"); // to support wider horizontal view
         addStyleName("phone");
+        setOrientation(true); // Ugly hack to get the right icon for the reload button
     }
 
     public void setMessage(Message message, MessageHierarchyView messageList) {

@@ -14,10 +14,8 @@ import com.vaadin.demo.mobilemail.data.MessageStatus;
 import com.vaadin.demo.mobilemail.data.MobileMailContainer;
 import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnHeaderMode;
 
@@ -42,7 +40,7 @@ public class FolderHierarchyView extends NavigationView {
     private final Resource draftIcon = new ThemeResource(
             "../runo/icons/64/document-edit.png");
 
-    public FolderHierarchyView(final NavigationManager nav, final MailBox mb) {
+    public FolderHierarchyView(final NavigationManager nav, final MailBox mb, boolean horizontal) {
 
         if (mb.getName().length() > 10) {
             setCaption(mb.getName().substring(0, 10) + "...");
@@ -131,7 +129,7 @@ public class FolderHierarchyView extends NavigationView {
         });
 
         setContent(table);
-        setToolbar(MailboxHierarchyView.createToolbar());
+        setToolbar(MailboxHierarchyView.createToolbar(horizontal));
     }
 
 }

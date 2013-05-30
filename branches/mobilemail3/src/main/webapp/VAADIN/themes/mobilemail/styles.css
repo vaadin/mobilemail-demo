@@ -386,3 +386,25 @@
 .v-touchkit-componentgroup-row:first-child {
 	border-radius: 10px 10px 0 0;
 }
+
+
+@-webkit-keyframes slideUp {
+	0% {
+		-webkit-transform: translateY(100%);
+	}
+}
+
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+}
+
+.v-touchkit-popover {
+	-webkit-animation: 50ms ease-out fadeIn;
+}
+
+
+.v-touchkit-popover.v-touchkit-smallscreen .popupContent {
+	-webkit-animation: 200ms ease-out slideUp;
+}
