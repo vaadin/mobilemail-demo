@@ -14,14 +14,14 @@ import com.vaadin.demo.mobilemail.data.Message;
 public class SmartphoneMainView extends MailboxHierarchyManager implements
         MainView {
 
-    private MessageView messageView = new MessageView(true);
+    private final MessageView messageView = new MessageView(true);
 
     public SmartphoneMainView() {
         setWidth("100%"); // to support wider horizontal view
         addStyleName("phone");
-        setOrientation(true); // Ugly hack to get the right icon for the reload button
     }
 
+    @Override
     public void setMessage(Message message, MessageHierarchyView messageList) {
         messageView.setMessage(message, messageList);
         // Navigation panel does not override previous component. As the
@@ -35,6 +35,11 @@ public class SmartphoneMainView extends MailboxHierarchyManager implements
 
         // show messageView in current navigationPanel (this)
         navigateTo(messageView);
+    }
+
+    @Override
+    public void updateNewMessages() {
+        messageView.updateNewMessages();
     }
 
 }

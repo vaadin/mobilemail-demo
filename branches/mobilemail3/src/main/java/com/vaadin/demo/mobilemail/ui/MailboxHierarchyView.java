@@ -2,12 +2,22 @@ package com.vaadin.demo.mobilemail.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import com.google.gwt.thirdparty.guava.common.collect.Maps;
 import com.vaadin.addon.touchkit.ui.NavigationBar;
 import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickEvent;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.VerticalComponentGroup;
+import com.vaadin.data.Container.ItemSetChangeEvent;
+import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.demo.mobilemail.MobileMailUI;
 import com.vaadin.demo.mobilemail.data.AbstractPojo;
 import com.vaadin.demo.mobilemail.data.DummyDataUtil;
@@ -25,147 +35,224 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.UIDetachedException;
 
 /**
  * Displays accounts, mailboxes, message list hierarchically
  */
 public class MailboxHierarchyView extends NavigationView {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final MobileMailContainer ds = DummyDataUtil.getContainer();
+    private final MobileMailContainer ds = DummyDataUtil.getContainer();
 
-	private final Resource mailboxIcon = new ThemeResource(
-			"../runo/icons/64/globe.png");
+    private final Map<MailBox, NavigationButton> mailBoxes = Maps.newHashMap();
 
-	static Resource reloadIcon = new ThemeResource(
-			"graphics/reload-icon-2x.png");
-	static Resource reloadIconWhite = new ThemeResource(
-			"graphics/reload-icon-white-2x.png");
+    private final Resource mailboxIcon = new ThemeResource(
+            "../runo/icons/64/globe.png");
 
-	private static Button reload;
+    static Resource reloadIcon = new ThemeResource(
+            "graphics/reload-icon-2x.png");
+    static Resource reloadIconWhite = new ThemeResource(
+            "graphics/reload-icon-white-2x.png");
 
-	private static boolean horizontal = false;
+    private static Button reload;
 
-	public MailboxHierarchyView(final MailboxHierarchyManager nav) {
+    private static boolean horizontal = false;
 
-		setCaption("Mailboxes");
-		setWidth("100%");
-		setHeight("100%");
+    private static Map<UI, Folder> vmailInboxes = Maps.newConcurrentMap();
 
-		// Mailboxes do not have parents
-		ds.setFilter(new ParentFilter(null));
+    static {
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
 
-		CssLayout root = new CssLayout();
+                for (final Entry<UI, Folder> entry : new HashSet<Entry<UI, Folder>>(
+                        vmailInboxes.entrySet())) {
+                    try {
+                        entry.getKey().access(new Runnable() {
+                            @Override
+                            public void run() {
+                                MobileMailContainer container = (MobileMailContainer) entry
+                                        .getKey().getData();
+                                Folder vmailInbox = entry.getValue();
+                                List<Message> newMessages = DummyDataUtil
+                                        .createMessages(vmailInbox, 1,
+                                                MessageStatus.NEW);
+                                container.addAll(newMessages);
 
-		VerticalComponentGroup accounts = new VerticalComponentGroup();
-		Label header = new Label("Accounts");
-		header.setSizeUndefined();
-		header.addStyleName("grey-title");
-		root.addComponent(header);
+                                Message newMessage = newMessages.get(0);
+                                Notification notification = new Notification(
+                                        null, "Received a new message from "
+                                                + newMessage.getFields().get(0)
+                                                        .getValue(),
+                                        Type.TRAY_NOTIFICATION);
+                                notification.setDelayMsec(2000);
+                                notification.show(entry.getKey().getPage());
+                            }
+                        });
+                    } catch (final UIDetachedException e) {
+                        // Ignore
+                    } catch (final NullPointerException e) {
+                        // Ignore
+                    }
+                }
+            }
+        }, new Date(), 30000);
+    }
 
-		for (AbstractPojo itemId : ds.getItemIds()) {
-			final MailBox mb = (MailBox) itemId;
-			NavigationButton btn = new NavigationButton(mb.getName());
-			if (mb.getName().length() > 20) {
-				btn.setCaption(mb.getName().substring(0, 20) + "…");
-			}
-			btn.setIcon(mailboxIcon);
-			btn.addClickListener(new NavigationButton.NavigationButtonClickListener() {
+    public MailboxHierarchyView(final MailboxHierarchyManager nav) {
 
-				private static final long serialVersionUID = 1L;
+        setCaption("Mailboxes");
+        setWidth("100%");
+        setHeight("100%");
 
-				@Override
-				public void buttonClick(NavigationButtonClickEvent event) {
-					FolderHierarchyView v = new FolderHierarchyView(nav, mb,
-							horizontal);
-					nav.navigateTo(v);
-				}
-			});
+        // Mailboxes do not have parents
+        ds.setFilter(new ParentFilter(null));
 
-			// Set new messages
-			int newMessages = 0;
-			for (Folder child : mb.getFolders()) {
-				for (AbstractPojo p : child.getChildren()) {
-					if (p instanceof Message) {
-						Message msg = (Message) p;
-						newMessages += msg.getStatus() == MessageStatus.NEW ? 1
-								: 0;
-					}
-				}
-			}
-			if (newMessages > 0) {
-				btn.setDescription(newMessages + "");
-			}
-			btn.addStyleName("pill");
-			accounts.addComponent(btn);
-		}
+        CssLayout root = new CssLayout();
 
-		root.addComponent(accounts);
-		setContent(root);
-		setToolbar(createToolbar());
-	}
+        VerticalComponentGroup accounts = new VerticalComponentGroup();
+        Label header = new Label("Accounts");
+        header.setSizeUndefined();
+        header.addStyleName("grey-title");
+        root.addComponent(header);
 
-	static Component createToolbar() {
-		return createToolbar(horizontal);
-	}
+        for (AbstractPojo itemId : ds.getItemIds()) {
+            final MailBox mb = (MailBox) itemId;
+            NavigationButton btn = new NavigationButton(mb.getName());
+            if (mb.getName().length() > 20) {
+                btn.setCaption(mb.getName().substring(0, 20) + "…");
+            }
+            btn.setIcon(mailboxIcon);
+            btn.addClickListener(new NavigationButton.NavigationButtonClickListener() {
 
-	static Component createToolbar(boolean horizontal) {
+                private static final long serialVersionUID = 1L;
 
-		final NavigationBar toolbar = new NavigationBar();
+                @Override
+                public void buttonClick(NavigationButtonClickEvent event) {
+                    FolderHierarchyView v = new FolderHierarchyView(nav, ds,
+                            mb, horizontal);
+                    nav.navigateTo(v);
+                }
+            });
 
-		reload = new Button();
-		reload.setIcon(horizontal ? reloadIcon : reloadIconWhite);
-		reload.addStyleName("reload");
-		reload.addStyleName("no-decoration");
+            btn.addStyleName("pill");
+            accounts.addComponent(btn);
 
-		toolbar.setLeftComponent(reload);
+            mailBoxes.put(mb, btn);
+        }
 
-		final SimpleDateFormat formatter = new SimpleDateFormat("M/d/yy hh:mm");
-		toolbar.setCaption("Updated "
-				+ formatter.format(Calendar.getInstance().getTime()));
+        root.addComponent(accounts);
+        setContent(root);
+        setToolbar(createToolbar());
 
-		reload.addClickListener(new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				toolbar.setCaption("Updated "
-						+ formatter.format(Calendar.getInstance().getTime()));
-			}
-		});
+        final UI ui = UI.getCurrent();
+        ui.setData(ds);
+        ds.addItemSetChangeListener(new ItemSetChangeListener() {
+            @Override
+            public void containerItemSetChange(ItemSetChangeEvent event) {
+                updateNewMessages();
+            }
+        });
+        updateNewMessages();
 
-		UI touchKitApplication = (UI) MobileMailUI.getCurrent();
-		if (touchKitApplication instanceof MobileMailUI) {
-			MobileMailUI app = (MobileMailUI) touchKitApplication;
-			if (app.isSmallScreenDevice()) {
-				/*
-				 * For small screen devices we add shortcut to new message below
-				 * hierarcy views
-				 */
-				ClickListener showComposeview = new ClickListener() {
-					@Override
-					public void buttonClick(ClickEvent event) {
-						ComposeView cv = new ComposeView(true);
-						cv.showRelativeTo(event.getButton());
-					}
-				};
-				Button button = new Button(null, showComposeview);
-				button.addStyleName("compose");
-				button.setIcon(new ThemeResource("graphics/compose-icon-2x.png"));
-				toolbar.setRightComponent(button);
-				button.addStyleName("no-decoration");
-			}
-		}
+        MailBox vmail = (MailBox) ds.getIdByIndex(0);
+        Folder vmailInbox = (Folder) ds.getChildren(vmail).iterator().next();
 
-		return toolbar;
-	}
+        vmailInboxes.put(ui, vmailInbox);
 
-	public void setOrientation(boolean horizontal) {
-		if (horizontal) {
-			reload.setIcon(reloadIcon);
-		} else {
-			reload.setIcon(reloadIconWhite);
-		}
-		this.horizontal = horizontal;
-	}
+        UI.getCurrent().addDetachListener(new DetachListener() {
+            @Override
+            public void detach(DetachEvent event) {
+                vmailInboxes.remove(ui);
+            }
+        });
+    }
+
+    static Component createToolbar() {
+        return createToolbar(horizontal);
+    }
+
+    static Component createToolbar(boolean horizontal) {
+
+        final NavigationBar toolbar = new NavigationBar();
+
+        reload = new Button();
+        reload.setIcon(horizontal ? reloadIcon : reloadIconWhite);
+        reload.addStyleName("reload");
+        reload.addStyleName("no-decoration");
+
+        toolbar.setLeftComponent(reload);
+
+        final SimpleDateFormat formatter = new SimpleDateFormat("M/d/yy hh:mm");
+        toolbar.setCaption("Updated "
+                + formatter.format(Calendar.getInstance().getTime()));
+
+        reload.addClickListener(new ClickListener() {
+            @Override
+            public void buttonClick(ClickEvent event) {
+                toolbar.setCaption("Updated "
+                        + formatter.format(Calendar.getInstance().getTime()));
+            }
+        });
+
+        UI touchKitApplication = MobileMailUI.getCurrent();
+        if (touchKitApplication instanceof MobileMailUI) {
+            MobileMailUI app = (MobileMailUI) touchKitApplication;
+            if (app.isSmallScreenDevice()) {
+                /*
+                 * For small screen devices we add shortcut to new message below
+                 * hierarcy views
+                 */
+                ClickListener showComposeview = new ClickListener() {
+                    @Override
+                    public void buttonClick(ClickEvent event) {
+                        ComposeView cv = new ComposeView(true);
+                        cv.showRelativeTo(event.getButton());
+                    }
+                };
+                Button button = new Button(null, showComposeview);
+                button.addStyleName("compose");
+                button.setIcon(new ThemeResource("graphics/compose-icon-2x.png"));
+                toolbar.setRightComponent(button);
+                button.addStyleName("no-decoration");
+            }
+        }
+
+        return toolbar;
+    }
+
+    public void setOrientation(boolean horizontal) {
+        if (horizontal) {
+            reload.setIcon(reloadIcon);
+        } else {
+            reload.setIcon(reloadIconWhite);
+        }
+        this.horizontal = horizontal;
+    }
+
+    private void updateNewMessages() {
+        for (Entry<MailBox, NavigationButton> entry : mailBoxes.entrySet()) {
+            // Set new messages
+            int newMessages = 0;
+            for (Folder child : entry.getKey().getFolders()) {
+                for (AbstractPojo p : child.getChildren()) {
+                    if (p instanceof Message) {
+                        Message msg = (Message) p;
+                        newMessages += msg.getStatus() == MessageStatus.NEW ? 1
+                                : 0;
+                    }
+                }
+            }
+            if (newMessages > 0) {
+                entry.getValue().setDescription(newMessages + "");
+            } else {
+                entry.getValue().setDescription(null);
+            }
+        }
+    }
 }

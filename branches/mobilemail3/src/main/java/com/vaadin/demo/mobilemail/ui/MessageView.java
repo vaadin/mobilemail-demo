@@ -1,9 +1,11 @@
 package com.vaadin.demo.mobilemail.ui;
 
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 import java.util.List;
 
 import com.vaadin.addon.touchkit.ui.HorizontalButtonGroup;
+import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.addon.touchkit.ui.Toolbar;
@@ -16,6 +18,7 @@ import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeButton;
@@ -84,13 +87,9 @@ public class MessageView extends NavigationView implements ClickListener {
             @Override
             public void buttonClick(ClickEvent event) {
                 Popover pop = new Popover();
-                VerticalLayout content = new VerticalLayout();
-                content.setMargin(true);
-                content.setSpacing(true);
-                pop.setContent(content);
                 pop.setWidth("300px");
                 Button reply = new Button("Reply", MessageView.this);
-                reply.addStyleName("reply");
+                reply.addStyleName("white");
                 reply.setWidth("100%");
                 Button replyAll = new Button("Reply All", MessageView.this);
                 replyAll.addStyleName("white");
@@ -110,13 +109,13 @@ public class MessageView extends NavigationView implements ClickListener {
         });
 
         moveButton.setStyleName("no-decoration");
-        moveButton.setIcon(new ThemeResource("graphics/move-icon-2x.png"));
+        moveButton.setIcon(new ThemeResource("graphics/move-icon.png"));
         composeButton.setStyleName("no-decoration");
-        composeButton.setIcon(new ThemeResource("graphics/compose-icon-2x.png"));
+        composeButton.setIcon(new ThemeResource("graphics/compose-icon.png"));
         deleteButton.setStyleName("no-decoration");
-        deleteButton.setIcon(new ThemeResource("graphics/trash-icon-2x.png"));
+        deleteButton.setIcon(new ThemeResource("graphics/trash-icon.png"));
         replyButton.setStyleName("no-decoration");
-        replyButton.setIcon(new ThemeResource("graphics/reply-icon-2x.png"));
+        replyButton.setIcon(new ThemeResource("graphics/reply-icon.png"));
 
         messageActions.addComponent(moveButton);
         messageActions.addComponent(deleteButton);
@@ -168,21 +167,6 @@ public class MessageView extends NavigationView implements ClickListener {
         currentMessageList = messageList;
 
         if (msg != null) {
-
-            Folder folder = (Folder) msg.getParent();
-            List<AbstractPojo> siblings = folder.getChildren();
-            int index = siblings.indexOf(msg);
-
-            nextButton.setEnabled(true);
-            prevButton.setEnabled(true);
-            if (index == 0) {
-                prevButton.setEnabled(false);
-            }
-            if (index == siblings.size() - 1) {
-                nextButton.setEnabled(false);
-            }
-
-            setCaption((index + 1) + " of " + siblings.size());
 
             layout.removeAllComponents();
             detailsLayout.removeAllComponents();
@@ -294,6 +278,8 @@ public class MessageView extends NavigationView implements ClickListener {
             nextButton.setEnabled(false);
             prevButton.setEnabled(false);
         }
+
+        updateNewMessages();
     }
 
     @Override
@@ -366,5 +352,46 @@ public class MessageView extends NavigationView implements ClickListener {
         }
 
         replyOptions.showRelativeTo(replyButton);
+    }
+
+    public void updateNewMessages() {
+        String caption = null;
+        if (message != null) {
+            Folder folder = (Folder) message.getParent();
+            List<AbstractPojo> siblings = folder.getChildren();
+            int index = siblings.indexOf(message);
+
+            nextButton.setEnabled(true);
+            prevButton.setEnabled(true);
+            if (index == 0) {
+                prevButton.setEnabled(false);
+            }
+            if (index == siblings.size() - 1) {
+                nextButton.setEnabled(false);
+            }
+
+            caption = (index + 1) + " of " + siblings.size();
+        }
+        setCaption(caption);
+
+        NavigationButton backButton = getBackButton();
+        if (backButton != null) {
+            Component target = backButton.getTargetView();
+            if (target != null && target == getPreviousComponent()) {
+                backButton.setCaption(getPreviousComponent().getCaption());
+            }
+        }
+    }
+
+    private NavigationButton getBackButton() {
+        NavigationButton backButton = null;
+        Iterator<Component> i = getNavigationBar().getComponentIterator();
+        while (i.hasNext()) {
+            Component comp = i.next();
+            if (comp instanceof NavigationButton) {
+                backButton = (NavigationButton) comp;
+            }
+        }
+        return backButton;
     }
 }

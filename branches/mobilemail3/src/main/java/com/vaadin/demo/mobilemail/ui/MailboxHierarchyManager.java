@@ -9,16 +9,16 @@ import com.vaadin.addon.touchkit.ui.NavigationManager;
 public class MailboxHierarchyManager extends NavigationManager {
 
     private static final long serialVersionUID = 1L;
-	private MailboxHierarchyView mailboxHierarchyView;
-
+    private MailboxHierarchyView mailboxHierarchyView;
+    
     public MailboxHierarchyManager() {
         setWidth("300px");
         addStyleName("mailboxes");
         mailboxHierarchyView = new MailboxHierarchyView(this);
         navigateTo(mailboxHierarchyView);
     }
-
-	public void setOrientation(boolean horizontal) {
-		mailboxHierarchyView.setOrientation(horizontal);
-	}
+    
+    public void setOrientation(boolean horizontal) {
+        mailboxHierarchyView.setOrientation(horizontal);
+    }
 }

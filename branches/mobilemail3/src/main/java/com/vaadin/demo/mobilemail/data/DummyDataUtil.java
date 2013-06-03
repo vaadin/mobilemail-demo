@@ -60,7 +60,7 @@ public class DummyDataUtil {
         return folder;
     }
 
-    private static List<Message> createMessages(Folder parent, int amount,
+    public static List<Message> createMessages(Folder parent, int amount,
             MessageStatus status) {
         List<Message> messages = new ArrayList<Message>();
         for (int i = 0; i < amount; i++) {

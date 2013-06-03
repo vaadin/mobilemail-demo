@@ -16,20 +16,34 @@
 
 package com.vaadin.demo.mobilemail;
 
+import java.net.Inet4Address;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.UnknownHostException;
+
+import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.demo.mobilemail.ui.SmartphoneMainView;
 import com.vaadin.demo.mobilemail.ui.TabletMainView;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinServletRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WebBrowser;
+import com.vaadin.shared.communication.PushMode;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.Window;
+
+import fi.jasoft.qrcode.QRCode;
 
 @SuppressWarnings("serial")
 @Theme("mobilemail")
 @Title("MobileMail")
 @Widgetset("com.vaadin.demo.mobilemail.gwt.MobileMailWidgetSet")
+@Push(PushMode.AUTOMATIC)
 public class MobileMailUI extends UI {
 
     public MobileMailUI() {
@@ -46,14 +60,61 @@ public class MobileMailUI extends UI {
         return viewPortWidth < 600;
     }
 
+    public boolean isLargeScreenDevice() {
+        float viewPortWidth = getBrowser().getScreenWidth();
+        return viewPortWidth > 800;
+    }
+
     @Override
     protected void init(VaadinRequest request) {
         if (isSmallScreenDevice()) {
             setContent(new SmartphoneMainView());
         } else {
+            if (isLargeScreenDevice()) {
+                showNonMobileNotification(request);
+            }
             setContent(new TabletMainView());
         }
         setImmediate(true);
+    }
+
+    private void showNonMobileNotification(VaadinRequest request) {
+        VaadinServletRequest vsr = (VaadinServletRequest) request;
+
+        try {
+            URL appUrl = ((MobileMailServlet) vsr.getService().getServlet())
+                    .getApplicationUrl(vsr);
+            String myIp = Inet4Address.getLocalHost().getHostAddress();
+            String qrCodeUrl = appUrl.toString().replaceAll("localhost", myIp);
+
+            QRCode qrCode = new QRCode();
+            qrCode.setHeight(150.0f, Unit.PIXELS);
+            qrCode.setWidth(150.0f, Unit.PIXELS);
+            qrCode.setValue(qrCodeUrl);
+
+            Label info = new Label(
+                    "You appear to be running this demo on a non-portable device. "
+                            + "MobileMail is intended for touch devices primarily. "
+                            + "Please read the QR code on your touch device to access the demo.");
+            info.setWidth("100%");
+
+            HorizontalLayout qrCodeLayout = new HorizontalLayout(qrCode, info);
+            qrCodeLayout.setSizeFull();
+            qrCodeLayout.setSpacing(true);
+            qrCodeLayout.setMargin(true);
+            qrCodeLayout.setExpandRatio(info, 1.0f);
+
+            Window window = new Window(null, qrCodeLayout);
+            window.setWidth(450.0f, Unit.PIXELS);
+            window.setHeight(200.0f, Unit.PIXELS);
+            window.setModal(true);
+            addWindow(window);
+            window.center();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
 }

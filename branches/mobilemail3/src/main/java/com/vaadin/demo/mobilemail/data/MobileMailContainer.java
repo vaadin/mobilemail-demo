@@ -16,6 +16,7 @@ public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
         super(AbstractPojo.class);
     }
 
+    @Override
     public Collection<? extends AbstractPojo> getChildren(Object parent) {
         List<AbstractPojo> children = new ArrayList<AbstractPojo>();
         for (AbstractPojo pojo : getAllItemIds()) {
@@ -26,6 +27,7 @@ public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
         return children;
     }
 
+    @Override
     public Object getParent(Object itemId) {
         AbstractPojo pojo = (AbstractPojo) itemId;
         return pojo.getParent();
@@ -34,6 +36,7 @@ public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
     /**
      * Root items are Mailboxes so this returns the mailboxes
      */
+    @Override
     public Collection<?> rootItemIds() {
         List<AbstractPojo> pojos = getAllItemIds();
         if (pojos != null) {
@@ -48,6 +51,7 @@ public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
         return null;
     }
 
+    @Override
     public boolean setParent(Object itemId, Object newParentId)
             throws UnsupportedOperationException {
         if (itemId instanceof MailBox) {
@@ -64,19 +68,23 @@ public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
         return false;
     }
 
+    @Override
     public boolean areChildrenAllowed(Object itemId) {
         return itemId instanceof MailBox || itemId instanceof Folder;
     }
 
+    @Override
     public boolean setChildrenAllowed(Object itemId, boolean areChildrenAllowed)
             throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not in use");
     }
 
+    @Override
     public boolean isRoot(Object itemId) {
         return itemId instanceof MailBox;
     }
 
+    @Override
     public boolean hasChildren(Object itemId) {
         if (itemId instanceof Message) {
             return false;
@@ -87,6 +95,12 @@ public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
             }
         }
         return false;
+    }
+
+    @Override
+    public void addAll(Collection<? extends AbstractPojo> collection) {
+        super.addAll(collection);
+        fireItemSetChange();
     }
 
     public void setFilter(Filter filter) {

@@ -38,7 +38,7 @@ public class TabletMainView extends HorizontalLayout implements MainView,
     @Override
     public void attach() {
         super.attach();
-        
+
         HorizontalButtonGroup hc = new HorizontalButtonGroup();
         showMailboxHierarchyButton = new Button();
         showMailboxHierarchyButton.addClickListener(this);
@@ -46,9 +46,9 @@ public class TabletMainView extends HorizontalLayout implements MainView,
         hc.addComponent(messageView.getNavigationPrevButton());
         hc.addComponent(messageView.getNavigationNextButton());
         messageView.setLeftComponent(hc);
-        
+
         setOrientation();
-        
+
         if (Page.getCurrent() != null) {
             Page.getCurrent().addBrowserWindowResizeListener(this);
         }
@@ -56,7 +56,7 @@ public class TabletMainView extends HorizontalLayout implements MainView,
 
     private void setOrientation() {
         removeAllComponents();
-        
+
         boolean horizontal = isHorizontal();
 
         if (horizontal) {
@@ -66,16 +66,16 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             if (mailboxHierarchyView.getParent() != null) {
                 Component parent2 = mailboxHierarchyView.getParent();
                 while (parent2 != null) {
-	                if (parent2 instanceof Window) {
-	                    Window window = (Window) parent2;
-	                    window.setContent(null);
-	                    if (window.getUI() != null) {
-	                        window.getUI().removeWindow(window);
-	                    }
-	                    break;
-	                } else {
-	                	parent2 = parent2.getParent();
-	                }
+                    if (parent2 instanceof Window) {
+                        Window window = (Window) parent2;
+                        window.setContent(null);
+                        if (window.getUI() != null) {
+                            window.getUI().removeWindow(window);
+                        }
+                        break;
+                    } else {
+                        parent2 = parent2.getParent();
+                    }
                 }
             }
 
@@ -88,7 +88,6 @@ public class TabletMainView extends HorizontalLayout implements MainView,
                     .getCurrentComponent().getCaption());
         }
 
-        mailboxHierarchyView.setOrientation(horizontal);
         showMailboxHierarchyButton.setVisible(!horizontal);
         lastOrientationHorizontal = horizontal;
     }
@@ -126,7 +125,7 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             if (parent2 != null && parent2 instanceof Popover) {
                 ((Popover) parent2).setContent(null);
             }
-            
+
             // CssLayout is added here as content gets position: absolute
             // that will stay when relocated to new parent (landscape ->
             // portrait change)
@@ -135,10 +134,10 @@ public class TabletMainView extends HorizontalLayout implements MainView,
             popoverLayout.setWidth("300px");
             popoverLayout.addComponent(mailboxHierarchyView);
             popover.setContent(popoverLayout);
-            
+
             popover.setClosable(true);
             popover.setHeight(Page.getCurrent().getBrowserWindowHeight() - 100,
-            		Unit.PIXELS);
+                    Unit.PIXELS);
             popover.showRelativeTo(showMailboxHierarchyButton);
 
             popover.addCloseListener(new CloseListener() {
@@ -163,5 +162,10 @@ public class TabletMainView extends HorizontalLayout implements MainView,
                 setOrientation();
             }
         }
+    }
+
+    @Override
+    public void updateNewMessages() {
+        messageView.updateNewMessages();
     }
 }

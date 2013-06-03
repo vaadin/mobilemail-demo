@@ -4,9 +4,10 @@ import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationButton.NavigationButtonClickEvent;
 import com.vaadin.addon.touchkit.ui.NavigationManager;
 import com.vaadin.addon.touchkit.ui.NavigationView;
+import com.vaadin.data.Container.ItemSetChangeEvent;
+import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.demo.mobilemail.data.AbstractPojo;
 import com.vaadin.demo.mobilemail.data.AncestorFilter;
-import com.vaadin.demo.mobilemail.data.DummyDataUtil;
 import com.vaadin.demo.mobilemail.data.Folder;
 import com.vaadin.demo.mobilemail.data.MailBox;
 import com.vaadin.demo.mobilemail.data.Message;
@@ -23,8 +24,6 @@ public class FolderHierarchyView extends NavigationView {
 
     private static final long serialVersionUID = 1L;
 
-    private final MobileMailContainer ds = DummyDataUtil.getContainer();
-
     private final Resource parentFolderIcon = new ThemeResource(
             "../runo/icons/64/folder.png");
 
@@ -40,7 +39,8 @@ public class FolderHierarchyView extends NavigationView {
     private final Resource draftIcon = new ThemeResource(
             "../runo/icons/64/document-edit.png");
 
-    public FolderHierarchyView(final NavigationManager nav, final MailBox mb, boolean horizontal) {
+    public FolderHierarchyView(final NavigationManager nav,
+            final MobileMailContainer ds, final MailBox mb, boolean horizontal) {
 
         if (mb.getName().length() > 10) {
             setCaption(mb.getName().substring(0, 10) + "...");
@@ -53,11 +53,23 @@ public class FolderHierarchyView extends NavigationView {
 
         ds.setFilter(new AncestorFilter(mb));
 
-        Table table = new Table(null, ds);
+        final Table table = new Table();
         table.setColumnHeaderMode(ColumnHeaderMode.HIDDEN);
-        table.setVisibleColumns(new Object[] { "name" });
+
         table.setSizeFull();
 
+        for (Object itemId : ds.getItemIds()) {
+            if (itemId instanceof Folder) {
+                table.addItem(itemId);
+            }
+        }
+
+        ds.addItemSetChangeListener(new ItemSetChangeListener() {
+            @Override
+            public void containerItemSetChange(ItemSetChangeEvent event) {
+                table.setEditable(false);
+            }
+        });
         table.addGeneratedColumn("name", new Table.ColumnGenerator() {
 
             private static final long serialVersionUID = 1L;
@@ -97,7 +109,7 @@ public class FolderHierarchyView extends NavigationView {
 
                         @Override
                         public void buttonClick(NavigationButtonClickEvent event) {
-                            nav.navigateTo(new MessageHierarchyView(nav, f));
+                            nav.navigateTo(new MessageHierarchyView(nav, f, ds));
                         }
                     });
 
@@ -128,8 +140,10 @@ public class FolderHierarchyView extends NavigationView {
             }
         });
 
+        table.setVisibleColumns(new Object[] { "name" });
+
         setContent(table);
-        setToolbar(MailboxHierarchyView.createToolbar(horizontal));
+        setToolbar(MailboxHierarchyView.createToolbar());
     }
 
 }
