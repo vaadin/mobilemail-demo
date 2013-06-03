@@ -87,19 +87,16 @@
 			<!-- A simple Jetty test server at http://localhost:8080/mobilemail can 
 				be launched with the Maven goal jetty:run and stopped with jetty:stop -->
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.24</version>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.0.3.v20130506</version>
 				<configuration>
 					<stopPort>9966</stopPort>
 					<stopKey>mobilemail</stopKey>
-					<!-- Redeploy every x seconds if changes are detected, 0 for no automatic 
-						redeployment -->
 					<scanIntervalSeconds>0</scanIntervalSeconds>
-					<!-- make sure Jetty also finds the widgetset -->
-					<webAppConfig>
+					<webApp>
 						<contextPath>/mobilemail</contextPath>
-					</webAppConfig>
+					</webApp>
 				</configuration>
 			</plugin>
 		</plugins>
