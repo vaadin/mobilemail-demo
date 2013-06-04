@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Timer;
@@ -79,12 +78,11 @@ public class MailboxHierarchyView extends NavigationView {
                                 MobileMailContainer container = (MobileMailContainer) entry
                                         .getKey().getData();
                                 Folder vmailInbox = entry.getValue();
-                                List<Message> newMessages = DummyDataUtil
-                                        .createMessages(vmailInbox, 1,
+                                Message newMessage = DummyDataUtil
+                                        .createMessage(vmailInbox,
                                                 MessageStatus.NEW);
-                                container.addAll(newMessages);
+                                container.addItem(newMessage);
 
-                                Message newMessage = newMessages.get(0);
                                 Notification notification = new Notification(
                                         null, "Received a new message from "
                                                 + newMessage.getFields().get(0)

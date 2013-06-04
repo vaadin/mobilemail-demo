@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.vaadin.data.Container;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 
 public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
@@ -98,9 +99,10 @@ public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
     }
 
     @Override
-    public void addAll(Collection<? extends AbstractPojo> collection) {
-        super.addAll(collection);
+    public BeanItem<AbstractPojo> addItem(Object itemId) {
+        BeanItem<AbstractPojo> result = super.addItem(itemId);
         fireItemSetChange();
+        return result;
     }
 
     public void setFilter(Filter filter) {
