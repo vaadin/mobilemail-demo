@@ -87,9 +87,13 @@ public class MessageView extends NavigationView implements ClickListener {
             @Override
             public void buttonClick(ClickEvent event) {
                 Popover pop = new Popover();
+                VerticalLayout content = new VerticalLayout();
+                content.setMargin(true);
+                content.setSpacing(true);
+                pop.setContent(content);
                 pop.setWidth("300px");
                 Button reply = new Button("Reply", MessageView.this);
-                reply.addStyleName("white");
+                reply.addStyleName("reply");
                 reply.setWidth("100%");
                 Button replyAll = new Button("Reply All", MessageView.this);
                 replyAll.addStyleName("white");
@@ -109,13 +113,13 @@ public class MessageView extends NavigationView implements ClickListener {
         });
 
         moveButton.setStyleName("no-decoration");
-        moveButton.setIcon(new ThemeResource("graphics/move-icon.png"));
+        moveButton.setIcon(new ThemeResource("graphics/move-icon-2x.png"));
         composeButton.setStyleName("no-decoration");
-        composeButton.setIcon(new ThemeResource("graphics/compose-icon.png"));
+        composeButton.setIcon(new ThemeResource("graphics/compose-icon-2x.png"));
         deleteButton.setStyleName("no-decoration");
-        deleteButton.setIcon(new ThemeResource("graphics/trash-icon.png"));
+        deleteButton.setIcon(new ThemeResource("graphics/trash-icon-2x.png"));
         replyButton.setStyleName("no-decoration");
-        replyButton.setIcon(new ThemeResource("graphics/reply-icon.png"));
+        replyButton.setIcon(new ThemeResource("graphics/reply-icon-2x.png"));
 
         messageActions.addComponent(moveButton);
         messageActions.addComponent(deleteButton);
@@ -330,6 +334,8 @@ public class MessageView extends NavigationView implements ClickListener {
     private void showReplyButtonOptions() {
         if (replyOptions == null) {
             replyOptions = new Popover();
+            replyOptionsLayout.setMargin(true);
+            replyOptionsLayout.setSpacing(true);
             replyOptions.setWidth("300px");
             replyOptions.setClosable(true);
             replyOptions.setContent(replyOptionsLayout);
@@ -337,6 +343,7 @@ public class MessageView extends NavigationView implements ClickListener {
 
             replyOptionsReply = new Button("Reply", this);
             replyOptionsReply.setWidth("100%");
+            replyOptionsReply.addStyleName("reply");
             replyOptionsReplyAll = new Button("Reply all", this);
             replyOptionsReplyAll.setWidth("100%");
             replyOptionsForward = new Button("Forward", this);

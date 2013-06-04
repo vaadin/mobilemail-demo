@@ -4,6 +4,7 @@ import com.vaadin.addon.touchkit.ui.EmailField;
 import com.vaadin.addon.touchkit.ui.NavigationBar;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.demo.mobilemail.MobileMailUI;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -34,7 +35,7 @@ public class ComposeView extends Popover implements ClickListener {
         content.addComponent(navigationBar);
 
         FormLayout fields = new FormLayout();
-        fields.setMargin(true);
+        fields.setMargin(new MarginInfo(false, true, false, true));
         fields.setSpacing(false);
 
         to.setWidth("100%");

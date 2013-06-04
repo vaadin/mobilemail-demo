@@ -7,6 +7,11 @@
  * For optimal (GWT packaged) theme example, see Vornitologist.
  */
 
+.v-app .v-label,
+.v-app .v-csslayout {
+	overflow: visible;
+}
+
 .v-touchkit-navbar .v-touchkit-componentgroup-h {
 	white-space: nowrap;
 }
@@ -96,7 +101,13 @@
 }
 
 .message-layout .mark-as-unread-button {
-    float: right;
+    position: absolute;
+	right: 15px;
+}
+
+.message-layout .mark-as-unread-button .v-icon {
+	margin-right: 4px;
+	vertical-align: -1px;
 }
 
 .selected-checkbox {
@@ -143,7 +154,7 @@
 	line-height: 1.2;
 }
 
-.v-table .message-button > .v-csslayout-margin {
+.v-table .message-button > .v-csslayout {
 	padding: 3px 0;
 }
 
@@ -236,11 +247,11 @@
 	padding: 20px;
 }
 
-.message-view .message-layout > .v-csslayout-margin {
+.v-app .message-view .message-layout {
 	padding: 16px 20px;
 	}
 
-.no-message .message-layout > .v-csslayout-margin {
+.v-app .no-message .message-layout {
 	padding: 0;
 	}
 
@@ -407,4 +418,8 @@
 
 .v-touchkit-popover.v-touchkit-smallscreen .popupContent {
 	-webkit-animation: 200ms ease-out slideUp;
+}
+
+.v-touchkit-popover.v-touchkit-smallscreen.v-touchkit-fullscreen .popupContent {
+	-webkit-animation: none;
 }
