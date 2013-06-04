@@ -127,7 +127,7 @@ public class DummyDataUtil {
 
         MobileMailContainer container = new MobileMailContainer();
 
-        MailBox box = createMailbox("Vmail");
+        MailBox box = createMailbox("Gmail");
         container.addBean(box);
         List<Folder> folders = createDefaultFolders(box);
         container.addAll(folders);
@@ -150,7 +150,7 @@ public class DummyDataUtil {
         container.addAll(createMessages(trash, 150, MessageStatus.READ));
 
         // Create a mailbox with deep folder structure
-        box = createMailbox("Hotvail");
+        box = createMailbox("Hotmail");
         container.addBean(box);
         folders = createDefaultFolders(box);
         container.addAll(folders);
@@ -168,7 +168,7 @@ public class DummyDataUtil {
         container.addAll(createMessages(current, 50, MessageStatus.READ));
 
         // Another mailbox..
-        box = createMailbox("Vahoo!");
+        box = createMailbox("Yahoo!");
         container.addBean(box);
         folders = createDefaultFolders(box);
         container.addAll(folders);
@@ -176,7 +176,7 @@ public class DummyDataUtil {
         container.addAll(createMessages(inbox, 300, MessageStatus.NEW));
 
         // Another mailbox..
-        box = createMailbox("vCloud");
+        box = createMailbox("iCloud");
         container.addBean(box);
         folders = createDefaultFolders(box);
         container.addAll(folders);

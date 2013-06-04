@@ -34,8 +34,6 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.UIDetachedException;
 
@@ -81,15 +79,10 @@ public class MailboxHierarchyView extends NavigationView {
                                 Message newMessage = DummyDataUtil
                                         .createMessage(vmailInbox,
                                                 MessageStatus.NEW);
-                                container.addItem(newMessage);
+                                container.addItemAt(0, newMessage);
 
-                                Notification notification = new Notification(
-                                        null, "Received a new message from "
-                                                + newMessage.getFields().get(0)
-                                                        .getValue(),
-                                        Type.TRAY_NOTIFICATION);
-                                notification.setDelayMsec(2000);
-                                notification.show(entry.getKey().getPage());
+                                // entry.getKey().removeStyleName(
+                                // "dont-animate-first-message");
                             }
                         });
                     } catch (final UIDetachedException e) {
@@ -99,7 +92,7 @@ public class MailboxHierarchyView extends NavigationView {
                     }
                 }
             }
-        }, new Date(), 30000);
+        }, new Date(), 10000);
     }
 
     public MailboxHierarchyView(final MailboxHierarchyManager nav) {

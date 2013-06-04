@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
@@ -41,9 +42,10 @@ import fi.jasoft.qrcode.QRCode;
 
 @SuppressWarnings("serial")
 @Theme("mobilemail")
-@Title("MobileMail")
+@Title("Vaadin Mail Demo")
 @Widgetset("com.vaadin.demo.mobilemail.gwt.MobileMailWidgetSet")
 @Push(PushMode.AUTOMATIC)
+@PreserveOnRefresh
 public class MobileMailUI extends UI {
 
     public MobileMailUI() {
@@ -57,12 +59,12 @@ public class MobileMailUI extends UI {
 
     public boolean isSmallScreenDevice() {
         float viewPortWidth = getBrowser().getScreenWidth();
-        return viewPortWidth < 600;
+        return viewPortWidth < 480;
     }
 
     public boolean isLargeScreenDevice() {
         float viewPortWidth = getBrowser().getScreenWidth();
-        return viewPortWidth > 800;
+        return viewPortWidth > 1024;
     }
 
     @Override
@@ -108,6 +110,8 @@ public class MobileMailUI extends UI {
             window.setWidth(450.0f, Unit.PIXELS);
             window.setHeight(200.0f, Unit.PIXELS);
             window.setModal(true);
+            window.setResizable(false);
+            window.setDraggable(false);
             addWindow(window);
             window.center();
         } catch (MalformedURLException e) {

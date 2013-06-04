@@ -32,6 +32,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.Table.CellStyleGenerator;
 import com.vaadin.ui.Table.ColumnHeaderMode;
 import com.vaadin.ui.themes.Reindeer;
 
@@ -212,11 +213,11 @@ public class MessageHierarchyView extends NavigationView implements
 
                             if (selected.isEmpty()) {
                                 moveButton.setCaption("Move");
-                                archiveButton.setCaption("Archive");
+                                archiveButton.setCaption("Delete");
                             } else {
                                 moveButton.setCaption("Move ("
                                         + selected.size() + ")");
-                                archiveButton.setCaption("Archive ("
+                                archiveButton.setCaption("Delete ("
                                         + selected.size() + ")");
                             }
                         }
@@ -276,6 +277,21 @@ public class MessageHierarchyView extends NavigationView implements
             public void itemClick(ItemClickEvent event) {
                 Message msg = (Message) event.getItemId();
                 messageClicked(msg);
+            }
+        });
+
+        table.setCellStyleGenerator(new CellStyleGenerator() {
+            @Override
+            public String getStyle(Table source, Object itemId,
+                    Object propertyId) {
+                if (table.firstItemId() == itemId && propertyId == null) {
+                    return "first";
+                }
+                if (propertyId == "new") {
+                    return "new";
+                }
+
+                return null;
             }
         });
 
@@ -363,7 +379,9 @@ public class MessageHierarchyView extends NavigationView implements
                 editBtn.setEnabled(false);
             }
         }
-
+        // The "new message" animation is a dirty hack, it always animates the
+        // first item in the list
+        // getUI().addStyleName("dont-animate-first-message");
     }
 
     private boolean isSmartphone() {
@@ -372,13 +390,13 @@ public class MessageHierarchyView extends NavigationView implements
 
     protected Component createEditToolbar() {
         final NavigationBar toolbar = new NavigationBar();
+        toolbar.addStyleName("edit-toolbar");
 
-        archiveButton = new Button("Archive", this);
+        archiveButton = new Button("Delete", this);
         archiveButton.setStyleName("red");
         toolbar.setLeftComponent(archiveButton);
 
         moveButton = new Button("Move", this);
-        moveButton.setStyleName("blue");
         toolbar.setRightComponent(moveButton);
 
         return toolbar;
