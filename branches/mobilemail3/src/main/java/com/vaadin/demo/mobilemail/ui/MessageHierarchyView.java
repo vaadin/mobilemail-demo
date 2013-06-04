@@ -172,6 +172,8 @@ public class MessageHierarchyView extends NavigationView implements
                 // Hide the back button while editing
                 getNavigationBar().getComponentIterator().next()
                         .setVisible(!editMode);
+
+                markAsDirty();
             }
         });
 
