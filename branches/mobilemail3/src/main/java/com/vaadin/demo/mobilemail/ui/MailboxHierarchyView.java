@@ -79,10 +79,11 @@ public class MailboxHierarchyView extends NavigationView {
                                 Message newMessage = DummyDataUtil
                                         .createMessage(vmailInbox,
                                                 MessageStatus.NEW);
+                                vmailInbox.getChildren().remove(newMessage);
+                                vmailInbox.getChildren().add(0, newMessage);
+
                                 container.addItemAt(0, newMessage);
 
-                                // entry.getKey().removeStyleName(
-                                // "dont-animate-first-message");
                             }
                         });
                     } catch (final UIDetachedException e) {

@@ -105,6 +105,14 @@ public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
         return result;
     }
 
+    @Override
+    public BeanItem<AbstractPojo> addItemAt(int index, Object newItemId)
+            throws IllegalArgumentException {
+        BeanItem<AbstractPojo> result = super.addItemAt(index, newItemId);
+        fireItemSetChange();
+        return result;
+    }
+
     public void setFilter(Filter filter) {
         removeAllContainerFilters();
         if (filter != null) {
