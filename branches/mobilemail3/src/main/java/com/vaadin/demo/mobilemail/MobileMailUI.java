@@ -107,8 +107,9 @@ public class MobileMailUI extends UI {
             qrCodeLayout.setExpandRatio(info, 1.0f);
 
             Window window = new Window(null, qrCodeLayout);
-            window.setWidth(450.0f, Unit.PIXELS);
+            window.setWidth(500.0f, Unit.PIXELS);
             window.setHeight(200.0f, Unit.PIXELS);
+            window.addStyleName("qr-code");
             window.setModal(true);
             window.setResizable(false);
             window.setDraggable(false);
