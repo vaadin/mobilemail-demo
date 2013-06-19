@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.vaadin.addon.touchkit.server.TouchKitServlet;
+import com.vaadin.addon.touchkit.settings.TouchKitSettings;
 import com.vaadin.server.ServiceException;
 import com.vaadin.server.SessionInitEvent;
 import com.vaadin.server.SessionInitListener;
@@ -42,6 +43,14 @@ public class MobileMailServlet extends TouchKitServlet {
             }
         });
 
+        TouchKitSettings s = getTouchKitSettings();
+        s.getWebAppSettings().setWebAppCapable(true);
+        s.getWebAppSettings().setStatusBarStyle("black");
+        String contextPath = getServletConfig().getServletContext()
+                .getContextPath();
+
+        s.getApplicationIcons().addApplicationIcon(
+                contextPath + "/VAADIN/themes/mobilemail/apple-touch-icon.png");
     }
 
     @Override
