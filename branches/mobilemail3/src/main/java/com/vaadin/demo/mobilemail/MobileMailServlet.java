@@ -1,10 +1,6 @@
 package com.vaadin.demo.mobilemail;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 import com.vaadin.addon.touchkit.server.TouchKitServlet;
 import com.vaadin.addon.touchkit.settings.TouchKitSettings;
@@ -51,11 +47,5 @@ public class MobileMailServlet extends TouchKitServlet {
 
         s.getApplicationIcons().addApplicationIcon(
                 contextPath + "/VAADIN/themes/mobilemail/apple-touch-icon.png");
-    }
-
-    @Override
-    public URL getApplicationUrl(HttpServletRequest request)
-            throws MalformedURLException {
-        return super.getApplicationUrl(request);
     }
 }

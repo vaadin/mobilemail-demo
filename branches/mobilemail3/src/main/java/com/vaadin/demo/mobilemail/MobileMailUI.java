@@ -28,8 +28,8 @@ import com.vaadin.annotations.Title;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.demo.mobilemail.ui.SmartphoneMainView;
 import com.vaadin.demo.mobilemail.ui.TabletMainView;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServletRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WebBrowser;
 import com.vaadin.shared.communication.PushMode;
@@ -73,19 +73,17 @@ public class MobileMailUI extends UI {
             setContent(new SmartphoneMainView());
         } else {
             if (isLargeScreenDevice()) {
-                showNonMobileNotification(request);
+                showNonMobileNotification();
             }
             setContent(new TabletMainView());
         }
         setImmediate(true);
     }
 
-    private void showNonMobileNotification(VaadinRequest request) {
-        VaadinServletRequest vsr = (VaadinServletRequest) request;
+    private void showNonMobileNotification() {
 
         try {
-            URL appUrl = ((MobileMailServlet) vsr.getService().getServlet())
-                    .getApplicationUrl(vsr);
+            URL appUrl = Page.getCurrent().getLocation().toURL();
             String myIp = Inet4Address.getLocalHost().getHostAddress();
             String qrCodeUrl = appUrl.toString().replaceAll("localhost", myIp);
 
