@@ -1,16 +1,18 @@
 <module>
-	<!--
-	    This file is automatically updated based on new dependencies by the
-	    goal "vaadin:update-widgetset".
-	--> 
+	<!-- This file is automatically updated based on new dependencies by the 
+		goal "vaadin:update-widgetset". -->
 
 	<inherits name="com.vaadin.DefaultWidgetSet" />
 	<inherits name="com.google.gwt.resources.Resources" />
 
-    <inherits name="com.vaadin.addon.touchkit.gwt.TouchKitWidgetSet" />
-    <inherits name="fi.jasoft.qrcode.QrcodeWidgetset" />
-    
-    	<!-- This instructs the cache manifest linker to add also files from our 
+	<inherits name="org.vaadin.addon.ios7fixes.Ios7HotFixes" />
+
+	<inherits name="com.vaadin.addon.touchkit.gwt.TouchKitWidgetSet" />
+	<inherits name="fi.jasoft.qrcode.QrcodeWidgetset" />
+
+
+
+	<!-- This instructs the cache manifest linker to add also files from our 
 		theme directory. Then e.g. the styles.css is accessible faster and also during 
 		offline usage. The value is relative to compilers execution path (most commonly 
 		the root path of the project). The part after ":" is used as relative root 
@@ -19,6 +21,6 @@
 	<set-configuration-property
 		name='touchkit.manifestlinker.additionalCacheRoot'
 		value='src/main/webapp/VAADIN/themes/mobilemail:../../themes/mobilemail' />
-    
+
 
 </module>

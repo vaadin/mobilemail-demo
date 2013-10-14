@@ -55,6 +55,10 @@
 	overflow: visible;
 }
 
+.v-scrollable{
+  -webkit-overflow-scrolling: touch;
+}
+
 .v-touchkit-navbar .v-touchkit-componentgroup-h {
 	white-space: nowrap;
 }

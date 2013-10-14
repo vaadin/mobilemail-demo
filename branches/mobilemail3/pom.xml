@@ -35,13 +35,13 @@
 				<version>${vaadin.version}</version>
 				<configuration>
 					<!-- if you don't specify any modules, the plugin will find them -->
-<!-- 					<modules> <module>com.vaadin.demo.mobilemail.gwt.ColorPickerWidgetSet</module>  -->
-<!-- 						</modules> -->
+					<!-- <modules> <module>com.vaadin.demo.mobilemail.gwt.ColorPickerWidgetSet</module> -->
+					<!-- </modules> -->
 					<webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
 					<!-- On Mac running Snow Leopard, add "-d32" -->
 					<!-- This causes error messages (but build works) in phase "package": 
 						two processes would use the same debug port -->
-<!-- 					extraJvmArgs>-Xmx512M -Xss1024k -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8998</extraJvmArgs -->
+					<!-- extraJvmArgs>-Xmx512M -Xss1024k -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8998</extraJvmArgs -->
 					<extraJvmArgs>-Xmx1024M -Xss1024k</extraJvmArgs>
 					<!-- <runTarget>mobilemail</runTarget> -->
 					<!-- We are doing "inplace" but into subdir VAADIN/widgetsets. This 
@@ -103,36 +103,36 @@
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
-<!-- 				<plugin> -->
-<!-- 					<groupId>org.eclipse.m2e</groupId> -->
-<!-- 					<artifactId>lifecycle-mapping</artifactId> -->
-<!-- 					<version>1.0.0</version> -->
-<!-- 					<configuration> -->
-<!-- 						<lifecycleMappingMetadata> -->
-<!-- 							<pluginExecutions> -->
-<!-- 								<pluginExecution> -->
-<!-- 									<pluginExecutionFilter> -->
-<!-- 										<groupId>com.vaadin</groupId> -->
-<!-- 										<artifactId> -->
-<!-- 											vaadin-maven-plugin -->
-<!-- 										</artifactId> -->
-<!-- 										<versionRange> -->
-<!-- 											[1.0.2,) -->
-<!-- 										</versionRange> -->
-<!-- 										<goals> -->
-<!-- 											<goal> -->
-<!-- 												update-widgetset -->
-<!-- 											</goal> -->
-<!-- 										</goals> -->
-<!-- 									</pluginExecutionFilter> -->
-<!-- 									<action> -->
-<!-- 										<ignore></ignore> -->
-<!-- 									</action> -->
-<!-- 								</pluginExecution> -->
-<!-- 							</pluginExecutions> -->
-<!-- 						</lifecycleMappingMetadata> -->
-<!-- 					</configuration> -->
-<!-- 				</plugin> -->
+				<!-- <plugin> -->
+				<!-- <groupId>org.eclipse.m2e</groupId> -->
+				<!-- <artifactId>lifecycle-mapping</artifactId> -->
+				<!-- <version>1.0.0</version> -->
+				<!-- <configuration> -->
+				<!-- <lifecycleMappingMetadata> -->
+				<!-- <pluginExecutions> -->
+				<!-- <pluginExecution> -->
+				<!-- <pluginExecutionFilter> -->
+				<!-- <groupId>com.vaadin</groupId> -->
+				<!-- <artifactId> -->
+				<!-- vaadin-maven-plugin -->
+				<!-- </artifactId> -->
+				<!-- <versionRange> -->
+				<!-- [1.0.2,) -->
+				<!-- </versionRange> -->
+				<!-- <goals> -->
+				<!-- <goal> -->
+				<!-- update-widgetset -->
+				<!-- </goal> -->
+				<!-- </goals> -->
+				<!-- </pluginExecutionFilter> -->
+				<!-- <action> -->
+				<!-- <ignore></ignore> -->
+				<!-- </action> -->
+				<!-- </pluginExecution> -->
+				<!-- </pluginExecutions> -->
+				<!-- </lifecycleMappingMetadata> -->
+				<!-- </configuration> -->
+				<!-- </plugin> -->
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -182,6 +182,11 @@
 			<groupId>com.vaadin.addon</groupId>
 			<artifactId>vaadin-touchkit-agpl</artifactId>
 			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.vaadin.addon</groupId>
+			<artifactId>ios7hotfixes</artifactId>
+			<version>2.0.0</version>
 		</dependency>
 		<dependency>
 			<!-- This comes also transitive, but fix version here -->
