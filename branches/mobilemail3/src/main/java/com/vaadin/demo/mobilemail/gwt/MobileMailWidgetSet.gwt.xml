@@ -5,7 +5,7 @@
 	<inherits name="com.vaadin.DefaultWidgetSet" />
 	<inherits name="com.google.gwt.resources.Resources" />
 
-	<inherits name="org.vaadin.addon.ios7fixes.Ios7HotFixes" />
+	<inherits name="org.vaadin.addon.ios7fixes.Ios7HotFixesWidgetset" />
 
 	<inherits name="com.vaadin.addon.touchkit.gwt.TouchKitWidgetSet" />
 	<inherits name="fi.jasoft.qrcode.QrcodeWidgetset" />
