@@ -9,12 +9,14 @@ import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.addon.touchkit.ui.Toolbar;
+import com.vaadin.demo.mobilemail.MobileMailUI;
 import com.vaadin.demo.mobilemail.data.AbstractPojo;
 import com.vaadin.demo.mobilemail.data.Folder;
 import com.vaadin.demo.mobilemail.data.Message;
 import com.vaadin.demo.mobilemail.data.MessageField;
 import com.vaadin.demo.mobilemail.data.MessageStatus;
-import com.vaadin.server.ThemeResource;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -31,9 +33,9 @@ import com.vaadin.ui.themes.Reindeer;
  * A navigation view to display a single message.
  * 
  */
+@SuppressWarnings("serial")
 public class MessageView extends NavigationView implements ClickListener {
 
-    private static final long serialVersionUID = 1L;
     private final CssLayout layout = new CssLayout();
     private final CssLayout detailsLayout = new CssLayout();
 
@@ -113,13 +115,13 @@ public class MessageView extends NavigationView implements ClickListener {
         });
 
         moveButton.setStyleName("no-decoration");
-        moveButton.setIcon(new ThemeResource("graphics/move-icon-2x.png"));
+        moveButton.setIcon(FontAwesome.FOLDER_O);
         composeButton.setStyleName("no-decoration");
-        composeButton.setIcon(new ThemeResource("graphics/compose-icon-2x.png"));
+        composeButton.setIcon(FontAwesome.PENCIL);
         deleteButton.setStyleName("no-decoration");
-        deleteButton.setIcon(new ThemeResource("graphics/trash-icon-2x.png"));
+        deleteButton.setIcon(FontAwesome.TRASH_O);
         replyButton.setStyleName("no-decoration");
-        replyButton.setIcon(new ThemeResource("graphics/reply-icon-2x.png"));
+        replyButton.setIcon(FontAwesome.MAIL_REPLY);
 
         messageActions.addComponent(moveButton);
         messageActions.addComponent(deleteButton);
@@ -167,10 +169,10 @@ public class MessageView extends NavigationView implements ClickListener {
     }
 
     public void setMessage(Message msg, MessageHierarchyView messageList) {
-        message = msg;
         currentMessageList = messageList;
 
         if (msg != null) {
+            message = msg;
 
             layout.removeAllComponents();
             detailsLayout.removeAllComponents();
@@ -200,14 +202,14 @@ public class MessageView extends NavigationView implements ClickListener {
                         event.getButton().setCaption("Details");
                     }
 
-                    if (markAsUnreadButton != null) {
+                    if (markAsUnreadButton != null && message.getStatus() == MessageStatus.READ) {
                         markAsUnreadButton.setVisible(detailsLayout.isVisible());
                     }
                 }
             });
             layout.addComponent(button);
 
-            lbl = new Label("<hr/>", Label.CONTENT_XHTML);
+            lbl = new Label("<hr/>", ContentMode.HTML);
             layout.addComponent(lbl);
 
             detailsLayout.setVisible(false);
@@ -230,7 +232,7 @@ public class MessageView extends NavigationView implements ClickListener {
                 btn.addStyleName("from-button");
                 detailsLayout.addComponent(btn);
 
-                lbl = new Label("<hr/>", Label.CONTENT_XHTML);
+                lbl = new Label("<hr/>", ContentMode.HTML);
                 detailsLayout.addComponent(lbl);
             }
 
@@ -246,29 +248,34 @@ public class MessageView extends NavigationView implements ClickListener {
                     "M/d/yy '<b>'hh:mm'</b>'");
 
             lbl = new Label(formatter.format(message.getTimestamp()),
-                    Label.CONTENT_XHTML);
+                    ContentMode.HTML);
             lbl.setStyleName(Reindeer.LABEL_SMALL);
             lbl.setSizeUndefined();
             subjectField.addComponent(lbl);
 
-            if (message.getStatus() != MessageStatus.UNREAD
-                    && message.getStatus() != MessageStatus.NEW) {
-                markAsUnreadButton = new Button("Mark as Unread");
+            if (message.getStatus() == MessageStatus.READ) {
+                markAsUnreadButton = new Button("Mark as Unread", new ClickListener() {
+                    @Override
+                    public void buttonClick(ClickEvent event) {
+                        markAsUnreadButton.setVisible(false);
+                        message.setStatus(MessageStatus.UNREAD);
+                        MobileMailUI.ds.refresh();
+                    }
+                });
                 markAsUnreadButton.setVisible(false);
                 markAsUnreadButton.setStyleName("mark-as-unread-button");
                 markAsUnreadButton.addStyleName(BaseTheme.BUTTON_LINK);
-                markAsUnreadButton.setIcon(new ThemeResource(
-                        "graphics/blue-ball.png"));
+                markAsUnreadButton.setIcon(FontAwesome.BELL_O);
                 subjectField.addComponent(markAsUnreadButton);
             }
 
             layout.addComponent(subjectField);
 
-            lbl = new Label("<hr/>", Label.CONTENT_XHTML);
+            lbl = new Label("<hr/>", ContentMode.HTML);
             layout.addComponent(lbl);
 
             MessageField body = message.getMessageField("body");
-            Label label = new Label(body.getValue(), Label.CONTENT_XHTML);
+            Label label = new Label(body.getValue(), ContentMode.HTML);
             layout.addComponent(label);
             removeStyleName("no-message");
 

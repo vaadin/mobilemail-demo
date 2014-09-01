@@ -7,6 +7,8 @@ public interface MainView {
     public void setMessage(Message message,
             MessageHierarchyView messageHierarchyView);
 
+    public Message getMessage();
+
     public void updateNewMessages();
 
 }

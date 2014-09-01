@@ -17,8 +17,4 @@ public class MailboxHierarchyManager extends NavigationManager {
         mailboxHierarchyView = new MailboxHierarchyView(this);
         navigateTo(mailboxHierarchyView);
     }
-    
-    public void setOrientation(boolean horizontal) {
-        mailboxHierarchyView.setOrientation(horizontal);
-    }
 }

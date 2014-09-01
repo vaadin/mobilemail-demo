@@ -1,6 +1,8 @@
 package com.vaadin.demo.mobilemail;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.addon.touchkit.server.TouchKitServlet;
 import com.vaadin.addon.touchkit.settings.TouchKitSettings;
@@ -11,10 +13,12 @@ import com.vaadin.server.UIClassSelectionEvent;
 import com.vaadin.server.UIProvider;
 import com.vaadin.ui.UI;
 
+@SuppressWarnings("serial")
+@WebServlet(value = "/*", asyncSupported = true, 
+     initParams = { @WebInitParam(name = "productionMode", value = "true") })
 public class MobileMailServlet extends TouchKitServlet {
 
     private final UIProvider uiProvider = new UIProvider() {
-
         @Override
         public Class<? extends UI> getUIClass(UIClassSelectionEvent event) {
             String userAgent = event.getRequest().getHeader("user-agent")

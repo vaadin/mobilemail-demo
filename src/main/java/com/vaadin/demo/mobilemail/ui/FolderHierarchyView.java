@@ -13,8 +13,8 @@ import com.vaadin.demo.mobilemail.data.MailBox;
 import com.vaadin.demo.mobilemail.data.Message;
 import com.vaadin.demo.mobilemail.data.MessageStatus;
 import com.vaadin.demo.mobilemail.data.MobileMailContainer;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Table;
@@ -24,23 +24,19 @@ public class FolderHierarchyView extends NavigationView {
 
     private static final long serialVersionUID = 1L;
 
-    private final Resource parentFolderIcon = new ThemeResource(
-            "../runo/icons/64/folder.png");
+    private final Resource parentFolderIcon = FontAwesome.FOLDER_OPEN;
 
-    private final Resource childFolderIcon = new ThemeResource(
-            "../runo/icons/64/folder.png");
+    private final Resource childFolderIcon = FontAwesome.FOLDER;
 
-    private final Resource trashIcon = new ThemeResource(
-            "../runo/icons/64/trash.png");
+    private final Resource trashIcon = FontAwesome.TRASH_O;
 
-    private final Resource sentIcon = new ThemeResource(
-            "../runo/icons/64/email-send.png");
+    private final Resource sentIcon = FontAwesome.ENVELOPE_O;
 
-    private final Resource draftIcon = new ThemeResource(
-            "../runo/icons/64/document-edit.png");
+    private final Resource draftIcon = FontAwesome.PENCIL_SQUARE;
 
+    @SuppressWarnings("serial")
     public FolderHierarchyView(final NavigationManager nav,
-            final MobileMailContainer ds, final MailBox mb, boolean horizontal) {
+            final MobileMailContainer ds, final MailBox mb) {
 
         if (mb.getName().length() > 10) {
             setCaption(mb.getName().substring(0, 10) + "...");
@@ -91,16 +87,16 @@ public class FolderHierarchyView extends NavigationView {
                     NavigationButton btn = new NavigationButton(f.getName());
 
                     // Set new messages
-                    int newMessages = 0;
+                    int unreadMessages = 0;
                     for (AbstractPojo child : f.getChildren()) {
                         if (child instanceof Message) {
                             Message msg = (Message) child;
-                            newMessages += msg.getStatus() == MessageStatus.NEW ? 1
+                            unreadMessages += msg.getStatus() != MessageStatus.READ ? 1
                                     : 0;
                         }
                     }
-                    if (newMessages > 0) {
-                        btn.setDescription(newMessages + "");
+                    if (unreadMessages > 0) {
+                        btn.setDescription(unreadMessages + "");
                     }
                     btn.addStyleName("pill");
                     btn.addClickListener(new NavigationButton.NavigationButtonClickListener() {
@@ -109,7 +105,7 @@ public class FolderHierarchyView extends NavigationView {
 
                         @Override
                         public void buttonClick(NavigationButtonClickEvent event) {
-                            nav.navigateTo(new MessageHierarchyView(nav, f, ds));
+                            nav.navigateTo(new MessageHierarchyView(f, ds));
                         }
                     });
 

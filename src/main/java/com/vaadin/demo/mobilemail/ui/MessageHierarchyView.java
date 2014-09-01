@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.vaadin.addon.touchkit.ui.NavigationBar;
-import com.vaadin.addon.touchkit.ui.NavigationManager;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.data.Container.ItemSetChangeEvent;
 import com.vaadin.data.Container.ItemSetChangeListener;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.demo.mobilemail.data.AbstractPojo;
 import com.vaadin.demo.mobilemail.data.Folder;
 import com.vaadin.demo.mobilemail.data.Message;
@@ -22,7 +22,6 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CheckBox;
@@ -36,12 +35,9 @@ import com.vaadin.ui.Table.CellStyleGenerator;
 import com.vaadin.ui.Table.ColumnHeaderMode;
 import com.vaadin.ui.themes.Reindeer;
 
+@SuppressWarnings("serial")
 public class MessageHierarchyView extends NavigationView implements
         LayoutClickListener, Button.ClickListener {
-
-    private static final long serialVersionUID = 1L;
-
-    private final MobileMailContainer ds;
 
     private boolean editMode = false;
 
@@ -92,6 +88,7 @@ public class MessageHierarchyView extends NavigationView implements
 
             Label header = new Label();
             header.setHeight("1.5em");
+            header.setStyleName(STYLENAME + "-subject");
             header.setWidth("-1px");
             if (subject.length() > 35) {
                 header.setValue(subject.substring(0, 35) + "...");
@@ -118,15 +115,11 @@ public class MessageHierarchyView extends NavigationView implements
         }
     }
 
-    @SuppressWarnings("serial")
-    public MessageHierarchyView(final NavigationManager nav,
-            final Folder folder, MobileMailContainer ds) {
+    public MessageHierarchyView(final Folder folder, final MobileMailContainer ds) {
         addStyleName("message-list");
 
-        this.ds = ds;
         this.folder = folder;
 
-        updateNewMessages();
         ds.addItemSetChangeListener(new ItemSetChangeListener() {
             @Override
             public void containerItemSetChange(ItemSetChangeEvent event) {
@@ -237,8 +230,8 @@ public class MessageHierarchyView extends NavigationView implements
                     Object columnId) {
                 if (itemId instanceof Message) {
                     Message msg = (Message) itemId;
-                    if (msg.getStatus() == MessageStatus.NEW) {
-                        Label lbl = new Label("&nbsp;", ContentMode.HTML);
+                    if (msg.getStatus() != MessageStatus.READ) {
+                        Label lbl = new Label();
                         lbl.setStyleName("new-marker");
                         lbl.setWidth("-1px");
                         return lbl;
@@ -272,6 +265,17 @@ public class MessageHierarchyView extends NavigationView implements
             table.setVisibleColumns(new Object[] { "new", "name" });
         }
 
+        table.addValueChangeListener(new ValueChangeListener() {
+            @Override
+            public void valueChange(ValueChangeEvent event) {
+                Message msg = (Message)event.getProperty().getValue();
+                if (msg != null && !msg.getStatus().equals(MessageStatus.READ)) {
+                    msg.setStatus(MessageStatus.READ);
+                    ds.refresh();
+                }
+            }
+        });
+
         table.addItemClickListener(new ItemClickListener() {
             @Override
             public void itemClick(ItemClickEvent event) {
@@ -284,32 +288,33 @@ public class MessageHierarchyView extends NavigationView implements
             @Override
             public String getStyle(Table source, Object itemId,
                     Object propertyId) {
-                if (table.firstItemId() == itemId && propertyId == null) {
-                    return "first";
+                if (itemId instanceof Message) {
+                    Message msg = (Message) itemId;
+                    if (msg.getStatus() == MessageStatus.NEW) {
+                        msg.setStatus(MessageStatus.UNREAD);
+                        return "new";
+                    }
                 }
-                if (propertyId == "new") {
-                    return "new";
-                }
-
                 return null;
             }
         });
 
         setContent(table);
         setToolbar(MailboxHierarchyView.createToolbar());
+        updateNewMessages();
     }
 
-    private void updateNewMessages() {
-        int newMessages = 0;
+    public void updateNewMessages() {
+        int unreadMessages = 0;
         for (AbstractPojo child : folder.getChildren()) {
             if (child instanceof Message) {
                 Message msg = (Message) child;
-                newMessages += msg.getStatus() == MessageStatus.NEW ? 1 : 0;
+                unreadMessages += msg.getStatus() != MessageStatus.READ ? 1 : 0;
             }
         }
 
-        if (newMessages > 0) {
-            setCaption(folder.getName() + " (" + newMessages + ")");
+        if (unreadMessages > 0) {
+            setCaption(folder.getName() + " (" + unreadMessages + ")");
         } else {
             setCaption(folder.getName());
         }
@@ -320,6 +325,9 @@ public class MessageHierarchyView extends NavigationView implements
                 MainView mainView = (MainView) cc;
                 mainView.updateNewMessages();
             }
+        }
+        if (table != null) {
+            table.refreshRowCache();
         }
     }
 
@@ -355,6 +363,14 @@ public class MessageHierarchyView extends NavigationView implements
         }
     }
 
+    private Message getMessage() {
+        ComponentContainer cc = (ComponentContainer) getUI().getContent();
+        if (cc instanceof MainView) {
+            return ((MainView) cc).getMessage();
+        }
+        return null;
+    }
+
     private void setMessageViewEnabled(boolean enabled) {
         if (!isSmartphone()) {
             ComponentContainer cc = (ComponentContainer) getUI().getContent();
@@ -368,20 +384,16 @@ public class MessageHierarchyView extends NavigationView implements
     protected void onBecomingVisible() {
         super.onBecomingVisible();
         if (!isSmartphone()) {
-            if (ds.size() > 0 && table.getValue() == null) {
-                table.select(ds.getIdByIndex(0));
-                setMessage((Message) table.getValue());
+            Message msg = getMessage();
+            if (getMessage() != null) {
+                table.select(msg);
             }
             setMessageViewEnabled(true);
-
+            setMessage((Message)table.getValue());
             if (folder.getChildren().isEmpty()) {
-                setMessage(null);
                 editBtn.setEnabled(false);
             }
         }
-        // The "new message" animation is a dirty hack, it always animates the
-        // first item in the list
-        // getUI().addStyleName("dont-animate-first-message");
     }
 
     private boolean isSmartphone() {
@@ -405,7 +417,6 @@ public class MessageHierarchyView extends NavigationView implements
     @Override
     public void buttonClick(ClickEvent event) {
         Notification.show("Not implemented");
-
     }
 
     public void selectMessage(Message msg) {

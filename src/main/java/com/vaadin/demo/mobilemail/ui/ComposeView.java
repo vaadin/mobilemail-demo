@@ -13,6 +13,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
 public class ComposeView extends Popover implements ClickListener {
 
     VerticalLayout content = new VerticalLayout();

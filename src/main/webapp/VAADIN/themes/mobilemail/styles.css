@@ -10,49 +10,46 @@
 
 /* QR code popup */
 .v-app .qr-code {
-	background: transparent;
-	text-shadow: none;
-	color: #fff;
+    background: transparent;
+    text-shadow: none;
+    color: #fff;
 }
 
 .qr-code .v-window-closebox {
-	top: auto;
-	bottom: 14px;
-	right: auto;
-	left: 190px;
-	background: transparent;
-	width: auto;
-	height: auto;
-	padding: .3em 0;
-	white-space: nowrap;
-	border-bottom: 1px solid #FFF;
-	z-index: 100;
+    top: auto;
+    bottom: 14px;
+    right: auto;
+    left: 190px;
+    background: transparent;
+    width: auto;
+    height: auto;
+    padding: .3em 0;
+    white-space: nowrap;
+    border-bottom: 1px solid #FFF;
+    z-index: 100;
 }
 
 .qr-code .v-window-closebox:before {
-	content: "OK, show me the demo anyway";
+    content: "OK, show me the demo anyway";
 }
 
 .qr-code .v-qrcode {
-	-webkit-box-shadow: 0 2px 8px #000;
-	box-shadow: 0 2px 8px #000;
+    -webkit-box-shadow: 0 2px 8px #000;
+    box-shadow: 0 2px 8px #000;
 }
 
 .qr-code .v-spacing {
-	width: 30px;
+    width: 30px;
 }
 
 .qr-code .v-label {
-	font-weight: bold;
-	line-height: 1.4;
+    font-weight: bold;
+    line-height: 1.4;
 }
-
-
-
 
 .v-app .v-label,
 .v-app .v-csslayout {
-	overflow: visible;
+    overflow: visible;
 }
 
 .v-scrollable{
@@ -60,84 +57,68 @@
 }
 
 .v-touchkit-navbar .v-touchkit-componentgroup-h {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 
 .v-table-body {
-	border: none;
-	overflow: hidden;
+    border: none;
+    overflow: hidden;
 }
 
 .v-touchkit-popover .v-table-body {
-	border-radius: 5px;
+    border-radius: 5px;
 }
 
-
-
 .tablet .mailboxes {
-	border-right: 1px solid rgba(0,0,0,.3);
+    border-right: 1px solid rgba(0,0,0,.3);
 }
 
 .tablet .mailboxes .v-touchkit-navview-wrapper,
 .tablet .mailboxes .v-touchkit-navpanel-placeholder {
-	background: #f6f6f7;
+    background: #f6f6f7;
 }
 
 .phone .v-touchkit-navview-wrapper .v-table,
 .phone .v-touchkit-navpanel-placeholder {
-	background: #fff;
+    background: #fff;
 }
 
 .mailboxes .v-table-body {
-	border: none;
+    border: none;
 }
 
 .mailboxes .v-table .v-touchkit-navbutton {
-	border: none;
-	padding: 0 12px;
-	margin: -5px 0;
+    border: none;
+    padding: 0 12px;
+    margin: -5px 0;
 }
 
 .mailboxes .v-table .v-touchkit-navbutton:focus,
 .mailboxes .v-table .v-touchkit-navbutton:active {
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4d8cb9), to(#3e6fa8));
-	color: #fff;
-	text-shadow: 0 1px 1px #396897;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4d8cb9), to(#3e6fa8));
+    color: #fff;
+    text-shadow: 0 1px 1px #396897;
 }
 
 .mailboxes .v-table-cell-content {
-	padding: 0;
-	vertical-align:middle;
+    padding: 0;
+    vertical-align:middle;
 }
 
 .v-touchkit-navview-toolbar .v-touchkit-navbar-caption {
-	font-size: 13px;
-	}
+    font-size: 13px;
+    }
 
 .v-navbutton::after {
-	top: 0 !important;
-}
-
-.v-table .v-label.new-marker {
-	height: 50px;
-	width: 30px;
-	padding: 0;
-	background: transparent url(graphics/blue-ball.png) no-repeat 50% 100%;
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-	.v-table .v-label.new-marker {
-		background-image: url(graphics/blue-ball-2x.png);
-		-webkit-background-size: 14px 13px;
-	}
+    top: 0 !important;
 }
 
 .message-layout .v-label-undef-w {
-	display: inline-block;
+    display: inline-block;
 }
 
 .message-layout .details-link {
-	float: right;
+    float: right;
     position: absolute;
     top: 0px;
 }
@@ -149,214 +130,219 @@
 
 .message-layout .mark-as-unread-button {
     position: absolute;
-	right: 15px;
+    right: 15px;
 }
 
 .message-layout .mark-as-unread-button .v-icon {
-	margin-right: 4px;
-	vertical-align: -1px;
+    margin-right: 4px;
+    vertical-align: -1px;
 }
 
 .selected-checkbox {
-	margin: 32px 0 0 10px;
+    margin: 32px 0 0 10px;
 }
 
 .v-table .v-table-focus .v-table-cell-content,
 .v-app .v-table .v-table-cell-content {
-	border: none;
-	border-bottom: 1px solid #d8d8d9;
+    border: none;
+    border-bottom: 1px solid #d8d8d9;
 }
 
 .v-table-cell-wrapper {
-	border: none;
-	padding-top: 1px;
+    border: none;
+    padding-top: 1px;
 }
 
 .message-list .v-table-cell-wrapper {
-	height: 90px;
+    height: 90px;
 }
 
 .v-table .v-table-focus .v-table-cell-wrapper {
-	margin: 0;
+    margin: 0;
 }
 
 .v-app .v-table .v-selected {
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4d8cb9), to(#3e6fa8));
-	outline: none;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4d8cb9), to(#3e6fa8));
+    outline: none;
 }
 
 .v-table .v-selected,
 .v-table .v-selected .v-label {
-	text-shadow: 0 1px 1px #396897 !important;
-	color: #fff !important;
+    text-shadow: 0 1px 1px #396897 !important;
+    color: #fff !important;
+}
+
+.v-table-table {
+    background: #f0f0f0;
 }
 
 .v-table .v-table-row,
 .v-table .v-table-row-odd {
-	background: transparent;
-	cursor: default;
+    background: #fff;
+    cursor: default;
 }
 
 .v-table .v-label {
-	padding: 0 20px 0 4px;
-	line-height: 1.2;
+    padding: 0 20px 0 4px;
+    line-height: 1.2;
 }
 
 .v-table .message-button > .v-csslayout {
-	padding: 3px 0;
+    padding: 3px 0;
 }
 
 .v-table .message-button-from {
-	font-size: 17px;
-	font-weight: bold;
-	line-height: 1.2;
-	margin-bottom: 2px;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 2px;
 }
 
 .v-table .v-label-light {
-	color: #797b7f;
-	font-size: 13px;
-	line-height: 15px;
-	margin-top: -4px;
+    color: #797b7f;
+    font-size: 13px;
+    line-height: 15px;
+    margin-top: -4px;
 }
 
 .message-button {
-	white-space: normal;
-	position: relative;
+    white-space: normal;
+    position: relative;
 }
 
 .message-button-from,
 .message-button-time {
-	display: inline-block;
+    display: inline-block;
 }
 
 .v-table .message-button-time {
-	position: absolute;
-	right: 0;
-	top: 10px;
-	color: #1b699f;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    color: #1b699f;
 }
 
 .v-app .from-button {
-	border: 1px solid #87a2bf;
-	-webkit-border-radius: 14px;
-	-moz-border-radius: 14px;
-	border-radius: 14px;
-	background: #dce6ef -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dee8f1), to(#cedae5));
-	line-height: 1;
-	padding: 0 7px 5px;
-	margin-left: 6px;
-	margin-bottom: -2px
+    border: 1px solid #87a2bf;
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    border-radius: 14px;
+    background: #dce6ef -webkit-gradient(linear, 0% 0%, 0% 100%, from(#dee8f1), to(#cedae5));
+    line-height: 1;
+    padding: 0 7px 5px;
+    margin-left: 6px;
+    margin-bottom: -2px
 }
 
 .from-button .v-button-caption,
 .from-button .v-nativebutton-caption {
-	color: #222;
+    color: #222;
 }
 
 .details-link {
-	position: absolute;
-	right: 20px;
-	top: 20px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
 }
 
 .message-view {
-	background: #fff;
+    background: #fff;
 }
 
 .message-view.no-message {
-	background: transparent;
+    background: transparent;
 }
 
 .no-message .message-layout  {
-	height: 100%;
-	background: transparent;
-	-webkit-box-shadow: inset 0 1px 5px rgba(0,0,0,.3);
+    height: 100%;
+    background: transparent;
+    -webkit-box-shadow: inset 0 1px 5px rgba(0,0,0,.3);
 }
 
 .no-message .message-layout div {
-	height: 100%;
-	font-size: 20px;
-	font-weight: bold;
-	text-shadow: 0 1px 0 rgba(255,255,255,.4);
-	color: #6a6c6f;
-	text-align: center;
-	position: relative;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 0 1px 0 rgba(255,255,255,.4);
+    color: #6a6c6f;
+    text-align: center;
+    position: relative;
 }
 
 .no-message .message-layout .v-label {
-	height: auto;
-	top: 40%;
+    height: auto;
+    top: 40%;
+    position: absolute;
 }
 
 .message-view .message-layout {
-	font-size: 16px;
-	line-height: 22px;
-	padding: 20px;
+    font-size: 16px;
+    line-height: 22px;
+    padding: 20px;
 }
 
 .v-app .message-view .message-layout {
-	padding: 16px 20px;
-	}
+    padding: 16px 20px;
+    }
 
 .v-app .no-message .message-layout {
-	padding: 0;
-	}
+    padding: 0;
+    }
 
 .message-view .message-layout hr {
-	height: 1px;
-	overflow: hidden;
-	background: #dcdcdc;
-	border: none;
-	border-bottom: 1px solid #fff;
-	margin: 12px -20px;
+    height: 1px;
+    overflow: hidden;
+    background: #dcdcdc;
+    border: none;
+    border-bottom: 1px solid #fff;
+    margin: 12px -20px;
 }
 
 .message-layout .light-text,
 .message-layout .light {
-	color: #797b7f;
+    color: #797b7f;
 }
 
 .message-layout .light b {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 .message-layout .h2 {
-	color: #222;
-	font-size: 17px;
-	font-weight: bold;
-	padding-bottom: 2px;
+    color: #222;
+    font-size: 17px;
+    font-weight: bold;
+    padding-bottom: 2px;
 }
 
 .message-details {
-	margin: 0 -20px;
-	padding: 0 20px;
+    margin: 0 -20px;
+    padding: 0 20px;
 }
 
 .v-touchkit-fullscreen.new-message {
-	background: #fff;
+    background: #fff;
 }
 
 .new-message .v-textfield,
 .new-message .v-textarea {
-	-webkit-appearance: none;
-	border: none;
-	background: transparent;
-	font-size: 15px;
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+    font-size: 15px;
 }
 
 .new-message .v-textarea {
-	border-top: 1px solid #ddd;
-	padding: 10px 12px;
-	line-height: 20px;
+    border-top: 1px solid #ddd;
+    padding: 10px 12px;
+    line-height: 20px;
 }
 
 .new-message .v-formlayout-row > td {
-	border-color: #ddd;
+    border-color: #ddd;
 }
 
 .v-table .indent-layout-level1 .v-touchkit-navbutton {
-	padding-left: 35px;
+    padding-left: 35px;
 }
 .v-table .indent-layout-level2 .v-touchkit-navbutton {
     padding-left: 70px;
@@ -370,150 +356,230 @@
 
 .v-app .v-button.blue,
 .v-app .v-button.red {
-	background-color: #1777EE;
-	border-color: #2762AA;
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .3);
-	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .3);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .3);
+    background-color: #1777EE;
+    border-color: #2762AA;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .3);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .3);
 }
 
 .v-app .v-button.red {
-	background-color: #c91800;
-	border-color: #9d1706;
+    background-color: #c91800;
+    border-color: #9d1706;
 }
 
 .v-app .v-button.blue:active {
-	background-color: #1062c9;
+    background-color: #1062c9;
 }
 
 .v-app .v-button.red:active {
-	background-color: #b31500;
+    background-color: #b31500;
 }
 
 .v-app .v-button-reply .v-button-wrap {
-	background-color: #1777EE;
-	color: #fff;
+    background-color: #1777EE;
+    color: #fff;
 }
 
 .v-touchkit-navbar .v-button img.v-icon {
-	width: 24px;
-	height: 24px;
-	margin-top: 2px;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
 }
 
 .edit-toolbar .v-touchkit-navbar-left {
-	right: 50%;
-	max-width: 100%;
+    right: 50%;
+    max-width: 100%;
 }
 
 .edit-toolbar .v-touchkit-navbar-right {
-	left: 50%;
-	max-width: 100%;
+    left: 50%;
+    max-width: 100%;
 }
 
 .edit-toolbar .v-touchkit-navbar-left .v-button,
 .edit-toolbar .v-touchkit-navbar-right .v-button {
-	display: block;
+    display: block;
 }
 
-
+/* Animate new messages comming */
 @-webkit-keyframes newMessage {
-	0% {
-		opacity: 0;
-		/*-webkit-transform: translateY(-100px);*/
-	}
-	100% {
-		opacity: 1;
-		/*-webkit-transform: translateY(0);*/
-	}
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100px, 100px) rotateX(-90deg);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0) rotateX(0deg);
+    }
 }
-.message-list .v-table-row-first .v-table-cell-wrapper {
-	-webkit-animation: 500ms ease-out newMessage;
+.message-list .v-table-table {
+    -webkit-perspective: 300px;
 }
-
-.message-list .v-table-cell-content-new {
-	width: 30px;
+.message-list .v-table-row-new {
+    -webkit-animation: 600ms ease-in-out newMessage;
 }
-
-
-
-
 
 /* TODO these below should be fixed in TouchKit theme */
 
 .v-touchkit-navbar, 
 .v-touchkit-navpanel-placeholder > div, 
 .v-touchkit-popover.v-touchkit-fullscreen .v-touchkit-navpanel-placeholder > div {
-	height: 44px !important;
+    height: 44px !important;
 }
 
 .v-loading-indicator, .v-loading-indicator-delay, .v-loading-indicator-wait {
-	background-size: 25px 25px;
+    background-size: 25px 25px;
 }
 
 .v-touchkit-navbar .v-button:active .v-button-wrap:after,
 .v-touchkit-toolbar .v-button:active .v-button-wrap:after {
-	display: none;
+    display: none;
 }
 
 .v-touchkit-navbar .v-button-no-decoration:active .v-button-wrap:after,
 .v-touchkit-toolbar .v-button-no-decoration:active .v-button-wrap:after {
-	display: block;
-	top: 50%;
-	left: 50%;
-	background-color: rgba(255,255,255,.5);
-	box-shadow: 0 0 50px 30px #fff;
-	width: 1px;
-	height: 1px;
-	border-radius: 14px;
+    display: block;
+    top: 50%;
+    left: 50%;
+    background-color: rgba(255,255,255,.5);
+    box-shadow: 0 0 50px 30px #fff;
+    width: 1px;
+    height: 1px;
+    border-radius: 14px;
 }
 
 .v-touchkit-toolbar .v-button-no-decoration:active .v-button-wrap {
-	background: transparent;
+    background: transparent;
 }
 
 .v-app .v-touchkit-popover.v-touchkit-relative .v-touchkit-navbar .v-button-no-decoration {
-	-webkit-box-shadow: none;
+    -webkit-box-shadow: none;
 }
-
-
-.v-touchkit-navbutton-back:active {
-	-webkit-border-image: url(graphics/back-button-down.png) 0 6 0 13 stretch stretch;
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-	.v-touchkit-navbutton-back:active {
-		-webkit-border-image: url(graphics/back-button-down-2x.png) 0 6 0 13 stretch stretch;
-	}
-}
-
 
 .v-touchkit-componentgroup-row:first-child {
-	border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
 }
 
 
 @-webkit-keyframes slideUp {
-	0% {
-		-webkit-transform: translateY(100%);
-	}
+    0% {
+        -webkit-transform: translateY(100%);
+    }
 }
 
 @-webkit-keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
+    0% {
+        opacity: 0;
+    }
 }
 
 .v-touchkit-popover {
-	-webkit-animation: 50ms ease-out fadeIn;
+    -webkit-animation: 50ms ease-out fadeIn;
 }
 
 
 .v-touchkit-popover.v-touchkit-smallscreen .popupContent {
-	-webkit-animation: 200ms ease-out slideUp;
+    -webkit-animation: 200ms ease-out slideUp;
 }
 
 .v-touchkit-popover.v-touchkit-smallscreen.v-touchkit-fullscreen .popupContent {
-	-webkit-animation: none;
+    -webkit-animation: none;
+}
+
+.message-button div {
+    text-overflow: ellipsis;
+    padding: 0px 10px 0px 8px !important;
+    overflow: hidden !important;
+}
+.message-button-time {
+    width: 20%;
+    min-width: 5em;
+    text-align: right !important;
+}
+.message-button-from {
+    width: 75%;
+}
+.message-button-subject {
+    width: 100%;
+    margin-bottom: 6px !important;
+}
+/* Use font-awesome bell for unread messages */
+.v-table .v-label.new-marker {
+    height: 55px;
+    width: 20px;
+    padding: 35px 0px 0px;
+    color: #00a3e8;
+    background: none;
+}
+.v-table .v-label.new-marker:before {
+    font-family: "FontAwesome";
+    content: "\f0f3";
+    margin-left: 4px;
+}
+.v-table-row-new .new-marker:before {
+	color: #F33B8C;
+}
+/* Increasing reload and compose icons */
+.v-touchkit-navbar-left .v-icon, .v-touchkit-navbar-right .v-icon {
+    font-size: 24px;
+}
+/* Folder list icons */
+.v-touchkit-navbutton .v-icon {
+    color: #00a3e8;
+}
+.v-touchkit-componentgroup-row .v-icon {
+    font-size: 26px;
+}
+/* hack until #14536 is fixed */
+.v-touchkit-componentgroup-row .v-touchkit-navbutton:before {
+    content: '\f0ac';
+    font-size: 26px;
+    font-family: 'FontAwesome';
+    color: #00a3e8;
+    margin-right: 8px;
+}
+/* Color was white */
+.v-app .qr-code {
+    color: inherit;
+}
+/* Message number is misplaced only in the folders view */
+table .v-touchkit-navbutton-desc {
+    margin-bottom: 0px;
+    margin-right: 19px;
+    /* margin-top: 5px !important; */
+}
+table .v-touchkit-navbutton {
+    line-height: 3;
+}
+/* Details/Hide link looks huge */
+.details-link .v-button-wrap span {
+    font-size: 15px;
+}
+.details-link {
+    top: 10px !important;
+    margin: 0px !important;
+}
+.mark-as-unread-button  {
+    margin-top: -14px !important;
+    font-size: 15px !important;
+}
+.mark-as-unread-button .v-button-caption {
+    font-size: 15px    !important;
+}
+/* When buttons are at top-right, they are misplaced  */
+.v-touchkit-navbar-right .v-touchkit-toolbar .v-button .v-icon {
+    line-height: 35px !important;
+}
+.v-touchkit-navbar-right .v-touchkit-toolbar .v-button {
+    border-left: 1px solid #e6e6e6;
+}
+/* Remove decoration when buttons are at top-right  */
+.v-touchkit-navbar-right .v-touchkit-toolbar {
+    box-shadow: none !important;
+    background: transparent !important;
+}
+/* Fix Archive/Move buttons in Edit screen */
+.v-touchkit-navbar .v-button {
+    display: inline-block !important;
 }

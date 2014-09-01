@@ -119,4 +119,8 @@ public class MobileMailContainer extends BeanItemContainer<AbstractPojo>
             addFilter(filter);
         }
     }
+
+    public void refresh() {
+        super.fireItemSetChange();
+    }
 }

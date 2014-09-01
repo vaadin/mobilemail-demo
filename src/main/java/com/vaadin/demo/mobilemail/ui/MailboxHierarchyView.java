@@ -26,8 +26,8 @@ import com.vaadin.demo.mobilemail.data.Message;
 import com.vaadin.demo.mobilemail.data.MessageStatus;
 import com.vaadin.demo.mobilemail.data.MobileMailContainer;
 import com.vaadin.demo.mobilemail.data.ParentFilter;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -40,25 +40,19 @@ import com.vaadin.ui.UIDetachedException;
 /**
  * Displays accounts, mailboxes, message list hierarchically
  */
+@SuppressWarnings("serial")
 public class MailboxHierarchyView extends NavigationView {
 
-    private static final long serialVersionUID = 1L;
-
-    private final MobileMailContainer ds = DummyDataUtil.getContainer();
+    private final MobileMailContainer ds = MobileMailUI.ds;
 
     private final Map<MailBox, NavigationButton> mailBoxes = Maps.newHashMap();
 
-    private final Resource mailboxIcon = new ThemeResource(
-            "../runo/icons/64/globe.png");
+    // FIXME(manolo): Unused until #14536 is fixed
+    private final Resource mailboxIcon = FontAwesome.GLOBE;
 
-    static Resource reloadIcon = new ThemeResource(
-            "graphics/reload-icon-2x.png");
-    static Resource reloadIconWhite = new ThemeResource(
-            "graphics/reload-icon-white-2x.png");
+    static Resource reloadIcon = FontAwesome.REFRESH;
 
     private static Button reload;
-
-    private static boolean horizontal = false;
 
     private static Map<UI, Folder> vmailInboxes = Maps.newConcurrentMap();
 
@@ -83,7 +77,6 @@ public class MailboxHierarchyView extends NavigationView {
                                 vmailInbox.getChildren().add(0, newMessage);
 
                                 container.addItemAt(0, newMessage);
-
                             }
                         });
                     } catch (final UIDetachedException e) {
@@ -119,15 +112,16 @@ public class MailboxHierarchyView extends NavigationView {
             if (mb.getName().length() > 20) {
                 btn.setCaption(mb.getName().substring(0, 20) + "…");
             }
-            btn.setIcon(mailboxIcon);
+            // FIXME(manolo): Disabled until #14536 is fixed
+            // Now we have a hack in style.css
+            // btn.setIcon(mailboxIcon);
             btn.addClickListener(new NavigationButton.NavigationButtonClickListener() {
 
                 private static final long serialVersionUID = 1L;
 
                 @Override
                 public void buttonClick(NavigationButtonClickEvent event) {
-                    FolderHierarchyView v = new FolderHierarchyView(nav, ds,
-                            mb, horizontal);
+                    FolderHierarchyView v = new FolderHierarchyView(nav, ds, mb);
                     nav.navigateTo(v);
                 }
             });
@@ -147,7 +141,7 @@ public class MailboxHierarchyView extends NavigationView {
         ds.addItemSetChangeListener(new ItemSetChangeListener() {
             @Override
             public void containerItemSetChange(ItemSetChangeEvent event) {
-                updateNewMessages();
+                 updateNewMessages();
             }
         });
         updateNewMessages();
@@ -166,15 +160,11 @@ public class MailboxHierarchyView extends NavigationView {
     }
 
     static Component createToolbar() {
-        return createToolbar(horizontal);
-    }
-
-    static Component createToolbar(boolean horizontal) {
 
         final NavigationBar toolbar = new NavigationBar();
 
         reload = new Button();
-        reload.setIcon(horizontal ? reloadIcon : reloadIconWhite);
+        reload.setIcon(reloadIcon);
         reload.addStyleName("reload");
         reload.addStyleName("no-decoration");
 
@@ -209,7 +199,7 @@ public class MailboxHierarchyView extends NavigationView {
                 };
                 Button button = new Button(null, showComposeview);
                 button.addStyleName("compose");
-                button.setIcon(new ThemeResource("graphics/compose-icon-2x.png"));
+                button.setIcon(FontAwesome.PENCIL_SQUARE_O);
                 toolbar.setRightComponent(button);
                 button.addStyleName("no-decoration");
             }
@@ -218,30 +208,21 @@ public class MailboxHierarchyView extends NavigationView {
         return toolbar;
     }
 
-    public void setOrientation(boolean horizontal) {
-        if (horizontal) {
-            reload.setIcon(reloadIcon);
-        } else {
-            reload.setIcon(reloadIconWhite);
-        }
-        this.horizontal = horizontal;
-    }
-
     private void updateNewMessages() {
         for (Entry<MailBox, NavigationButton> entry : mailBoxes.entrySet()) {
             // Set new messages
-            int newMessages = 0;
+            int unreadMessages = 0;
             for (Folder child : entry.getKey().getFolders()) {
                 for (AbstractPojo p : child.getChildren()) {
                     if (p instanceof Message) {
                         Message msg = (Message) p;
-                        newMessages += msg.getStatus() == MessageStatus.NEW ? 1
+                        unreadMessages += msg.getStatus() != MessageStatus.READ ? 1
                                 : 0;
                     }
                 }
             }
-            if (newMessages > 0) {
-                entry.getValue().setDescription(newMessages + "");
+            if (unreadMessages > 0) {
+                entry.getValue().setDescription(unreadMessages + "");
             } else {
                 entry.getValue().setDescription(null);
             }

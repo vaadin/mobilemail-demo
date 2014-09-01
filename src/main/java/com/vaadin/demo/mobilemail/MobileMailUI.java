@@ -21,18 +21,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import com.vaadin.addon.touchkit.annotations.CacheManifestEnabled;
+import com.vaadin.addon.touchkit.annotations.OfflineModeEnabled;
+import com.vaadin.addon.touchkit.extensions.OfflineMode;
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.demo.mobilemail.data.DummyDataUtil;
+import com.vaadin.demo.mobilemail.data.MobileMailContainer;
 import com.vaadin.demo.mobilemail.ui.SmartphoneMainView;
 import com.vaadin.demo.mobilemail.ui.TabletMainView;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WebBrowser;
-import com.vaadin.shared.communication.PushMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
@@ -43,13 +47,17 @@ import fi.jasoft.qrcode.QRCode;
 @SuppressWarnings("serial")
 @Theme("mobilemail")
 @Title("Vaadin Mail Demo")
-@Widgetset("com.vaadin.demo.mobilemail.gwt.MobileMailWidgetSet")
-@Push(PushMode.AUTOMATIC)
+@Push
 @PreserveOnRefresh
+@OfflineModeEnabled
+@CacheManifestEnabled
+//We don't need change anything in the default widgetset, so
+//use it from the .jar bundle and don't spend time compiling
+@Widgetset("com.vaadin.demo.mobilemail.gwt.MobileMailWidgetSet")
 public class MobileMailUI extends UI {
 
-    public MobileMailUI() {
-    }
+    // We use the same MailContainer instance for all the app.
+    public static  MobileMailContainer ds = DummyDataUtil.getContainer();
 
     @SuppressWarnings("deprecation")
     public WebBrowser getBrowser() {
@@ -58,8 +66,7 @@ public class MobileMailUI extends UI {
     }
 
     public boolean isSmallScreenDevice() {
-        float viewPortWidth = getBrowser().getScreenWidth();
-        return viewPortWidth < 480;
+        return UI.getCurrent().getPage().getBrowserWindowWidth() < 600;
     }
 
     public boolean isLargeScreenDevice() {
@@ -67,21 +74,25 @@ public class MobileMailUI extends UI {
         return viewPortWidth > 1024;
     }
 
+
     @Override
     protected void init(VaadinRequest request) {
         if (isSmallScreenDevice()) {
             setContent(new SmartphoneMainView());
         } else {
-            if (isLargeScreenDevice()) {
+            if (isLargeScreenDevice() && request.getParameter("mobile") == null) {
                 showNonMobileNotification();
             }
             setContent(new TabletMainView());
         }
-        setImmediate(true);
+
+        OfflineMode offlineMode = new OfflineMode();
+        offlineMode.extend(this);
+        offlineMode.setPersistentSessionCookie(true);
+        offlineMode.setOfflineModeTimeout(30);
     }
 
     private void showNonMobileNotification() {
-
         try {
             URL appUrl = Page.getCurrent().getLocation().toURL();
             String myIp = Inet4Address.getLocalHost().getHostAddress();

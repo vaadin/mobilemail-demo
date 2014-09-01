@@ -1,11 +1,18 @@
 package com.vaadin.demo.mobilemail;
 
+import com.vaadin.addon.touchkit.annotations.CacheManifestEnabled;
+import com.vaadin.addon.touchkit.annotations.OfflineModeEnabled;
+import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+@SuppressWarnings("serial")
+@OfflineModeEnabled(false)
+@CacheManifestEnabled(false)
+@Widgetset("com.vaadin.addon.touchkit.gwt.TouchKitWidgetSet")
 public class FallbackUI extends UI {
 
     private static final String MSG = "<h1>Ooops...</h1> You accessed this demo "

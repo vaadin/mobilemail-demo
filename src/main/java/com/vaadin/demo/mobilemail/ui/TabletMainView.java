@@ -24,13 +24,14 @@ public class TabletMainView extends HorizontalLayout implements MainView,
 
     MailboxHierarchyManager mailboxHierarchyView = new MailboxHierarchyManager();
 
-    MessageView messageView = new MessageView(false);
+    MessageView messageView;
 
     Button showMailboxHierarchyButton;
 
     private boolean lastOrientationHorizontal;
 
     public TabletMainView() {
+        messageView = new MessageView(false);
         setSizeFull();
         addStyleName("tablet");
     }
@@ -89,7 +90,6 @@ public class TabletMainView extends HorizontalLayout implements MainView,
         }
 
         showMailboxHierarchyButton.setVisible(!horizontal);
-        mailboxHierarchyView.setOrientation(horizontal);
         lastOrientationHorizontal = horizontal;
     }
 
@@ -168,5 +168,10 @@ public class TabletMainView extends HorizontalLayout implements MainView,
     @Override
     public void updateNewMessages() {
         messageView.updateNewMessages();
+    }
+
+    @Override
+    public Message getMessage() {
+        return messageView.getMessage();
     }
 }

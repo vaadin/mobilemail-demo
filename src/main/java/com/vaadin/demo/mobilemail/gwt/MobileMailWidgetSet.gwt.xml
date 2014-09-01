@@ -5,7 +5,7 @@
 	<inherits name="com.vaadin.DefaultWidgetSet" />
 	<inherits name="com.google.gwt.resources.Resources" />
 
-	<inherits name="org.vaadin.addon.ios7fixes.Ios7HotFixesWidgetset" />
+        <inherits name="org.vaadin.addon.ios7fixes.Ios7HotFixesWidgetset" />
 
 	<inherits name="com.vaadin.addon.touchkit.gwt.TouchKitWidgetSet" />
 	<inherits name="fi.jasoft.qrcode.QrcodeWidgetset" />
@@ -22,5 +22,6 @@
 		name='touchkit.manifestlinker.additionalCacheRoot'
 		value='src/main/webapp/VAADIN/themes/mobilemail:../../themes/mobilemail' />
 
-
+	<!-- Reduce Js size -->
+	<set-property name="compiler.stackMode" value="strip" />
 </module>
