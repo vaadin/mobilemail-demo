@@ -574,6 +574,10 @@ table .v-touchkit-navbutton {
 .v-touchkit-navbar-right .v-touchkit-toolbar .v-button {
     border-left: 1px solid #e6e6e6;
 }
+.v-touchkit-navbar-right .v-touchkit-toolbar .v-button-wrap {
+    height: 100% !important;
+    width: 40px !important;
+}
 /* Remove decoration when buttons are at top-right  */
 .v-touchkit-navbar-right .v-touchkit-toolbar {
     box-shadow: none !important;
