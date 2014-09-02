@@ -4,6 +4,7 @@ import com.vaadin.addon.touchkit.ui.HorizontalButtonGroup;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.demo.mobilemail.MobileMailUI;
 import com.vaadin.demo.mobilemail.data.Message;
+import com.vaadin.demo.mobilemail.data.MobileMailContainer;
 import com.vaadin.server.Page;
 import com.vaadin.server.Page.BrowserWindowResizeEvent;
 import com.vaadin.server.Page.BrowserWindowResizeListener;
@@ -22,16 +23,17 @@ public class TabletMainView extends HorizontalLayout implements MainView,
 
     private static final long serialVersionUID = 1L;
 
-    MailboxHierarchyManager mailboxHierarchyView = new MailboxHierarchyManager();
+    private final MailboxHierarchyManager mailboxHierarchyView;
 
-    MessageView messageView;
+    private final MessageView messageView;
 
     Button showMailboxHierarchyButton;
 
     private boolean lastOrientationHorizontal;
 
-    public TabletMainView() {
-        messageView = new MessageView(false);
+    public TabletMainView(MobileMailContainer ds) {
+        mailboxHierarchyView = new MailboxHierarchyManager(ds);
+        messageView = new MessageView(ds, false);
         setSizeFull();
         addStyleName("tablet");
     }

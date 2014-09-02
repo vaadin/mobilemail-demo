@@ -12,7 +12,8 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 @OfflineModeEnabled(false)
 @CacheManifestEnabled(false)
-@Widgetset("com.vaadin.addon.touchkit.gwt.TouchKitWidgetSet")
+// Use default widgetset.
+@Widgetset("com.vaadin.DefaultWidgetSet")
 public class FallbackUI extends UI {
 
     private static final String MSG = "<h1>Ooops...</h1> You accessed this demo "

@@ -1,6 +1,7 @@
 package com.vaadin.demo.mobilemail.ui;
 
 import com.vaadin.demo.mobilemail.data.Message;
+import com.vaadin.demo.mobilemail.data.MobileMailContainer;
 
 /**
  * Main view for smartphones.
@@ -14,9 +15,11 @@ import com.vaadin.demo.mobilemail.data.Message;
 public class SmartphoneMainView extends MailboxHierarchyManager implements
         MainView {
 
-    private final MessageView messageView = new MessageView(true);
+    private final MessageView messageView;
 
-    public SmartphoneMainView() {
+    public SmartphoneMainView(MobileMailContainer ds) {
+        super(ds);
+        messageView = new MessageView(ds, true);
         setWidth("100%"); // to support wider horizontal view
         addStyleName("phone");
     }

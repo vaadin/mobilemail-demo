@@ -9,12 +9,12 @@ import com.vaadin.addon.touchkit.ui.NavigationButton;
 import com.vaadin.addon.touchkit.ui.NavigationView;
 import com.vaadin.addon.touchkit.ui.Popover;
 import com.vaadin.addon.touchkit.ui.Toolbar;
-import com.vaadin.demo.mobilemail.MobileMailUI;
 import com.vaadin.demo.mobilemail.data.AbstractPojo;
 import com.vaadin.demo.mobilemail.data.Folder;
 import com.vaadin.demo.mobilemail.data.Message;
 import com.vaadin.demo.mobilemail.data.MessageField;
 import com.vaadin.demo.mobilemail.data.MessageStatus;
+import com.vaadin.demo.mobilemail.data.MobileMailContainer;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
@@ -56,8 +56,10 @@ public class MessageView extends NavigationView implements ClickListener {
     private Button replyOptionsPrint;
     private final VerticalLayout replyOptionsLayout = new VerticalLayout();
     private final boolean smartphone;
+    private final MobileMailContainer ds;
 
-    public MessageView(boolean smartphone) {
+    public MessageView(MobileMailContainer ds, boolean smartphone) {
+        this.ds = ds;
         this.smartphone = smartphone;
         setContent(layout);
         layout.setWidth("100%");
@@ -259,7 +261,7 @@ public class MessageView extends NavigationView implements ClickListener {
                     public void buttonClick(ClickEvent event) {
                         markAsUnreadButton.setVisible(false);
                         message.setStatus(MessageStatus.UNREAD);
-                        MobileMailUI.ds.refresh();
+                        ds.refresh();
                     }
                 });
                 markAsUnreadButton.setVisible(false);

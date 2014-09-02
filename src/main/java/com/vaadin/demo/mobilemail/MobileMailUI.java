@@ -51,13 +51,8 @@ import fi.jasoft.qrcode.QRCode;
 @PreserveOnRefresh
 @OfflineModeEnabled
 @CacheManifestEnabled
-//We don't need change anything in the default widgetset, so
-//use it from the .jar bundle and don't spend time compiling
 @Widgetset("com.vaadin.demo.mobilemail.gwt.MobileMailWidgetSet")
 public class MobileMailUI extends UI {
-
-    // We use the same MailContainer instance for all the app.
-    public static  MobileMailContainer ds = DummyDataUtil.getContainer();
 
     @SuppressWarnings("deprecation")
     public WebBrowser getBrowser() {
@@ -74,16 +69,19 @@ public class MobileMailUI extends UI {
         return viewPortWidth > 1024;
     }
 
-
     @Override
     protected void init(VaadinRequest request) {
+
+       // We use the one MailContainer instance per client.
+        MobileMailContainer ds = DummyDataUtil.getContainer();
+
         if (isSmallScreenDevice()) {
-            setContent(new SmartphoneMainView());
+            setContent(new SmartphoneMainView(ds));
         } else {
             if (isLargeScreenDevice() && request.getParameter("mobile") == null) {
                 showNonMobileNotification();
             }
-            setContent(new TabletMainView());
+            setContent(new TabletMainView(ds));
         }
 
         OfflineMode offlineMode = new OfflineMode();

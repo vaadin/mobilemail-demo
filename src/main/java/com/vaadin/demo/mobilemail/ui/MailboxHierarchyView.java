@@ -43,8 +43,6 @@ import com.vaadin.ui.UIDetachedException;
 @SuppressWarnings("serial")
 public class MailboxHierarchyView extends NavigationView {
 
-    private final MobileMailContainer ds = MobileMailUI.ds;
-
     private final Map<MailBox, NavigationButton> mailBoxes = Maps.newHashMap();
 
     // FIXME(manolo): Unused until #14536 is fixed
@@ -89,8 +87,7 @@ public class MailboxHierarchyView extends NavigationView {
         }, new Date(), 10000);
     }
 
-    public MailboxHierarchyView(final MailboxHierarchyManager nav) {
-
+    public MailboxHierarchyView(final MobileMailContainer ds, final MailboxHierarchyManager nav) {
         setCaption("Mailboxes");
         setWidth("100%");
         setHeight("100%");
