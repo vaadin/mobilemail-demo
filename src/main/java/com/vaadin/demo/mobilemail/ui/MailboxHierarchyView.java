@@ -45,7 +45,6 @@ public class MailboxHierarchyView extends NavigationView {
 
     private final Map<MailBox, NavigationButton> mailBoxes = Maps.newHashMap();
 
-    // FIXME(manolo): Unused until #14536 is fixed
     private final Resource mailboxIcon = FontAwesome.GLOBE;
 
     static Resource reloadIcon = FontAwesome.REFRESH;
@@ -109,9 +108,8 @@ public class MailboxHierarchyView extends NavigationView {
             if (mb.getName().length() > 20) {
                 btn.setCaption(mb.getName().substring(0, 20) + "…");
             }
-            // FIXME(manolo): Disabled until #14536 is fixed
-            // Now we have a hack in style.css
-            // btn.setIcon(mailboxIcon);
+            btn.setIcon(mailboxIcon);
+
             btn.addClickListener(new NavigationButton.NavigationButtonClickListener() {
 
                 private static final long serialVersionUID = 1L;

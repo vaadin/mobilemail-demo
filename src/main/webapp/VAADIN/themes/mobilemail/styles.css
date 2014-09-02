@@ -526,14 +526,6 @@
 .v-touchkit-componentgroup-row .v-icon {
     font-size: 26px;
 }
-/* hack until #14536 is fixed */
-.v-touchkit-componentgroup-row .v-touchkit-navbutton:before {
-    content: '\f0ac';
-    font-size: 26px;
-    font-family: 'FontAwesome';
-    color: #00a3e8;
-    margin-right: 8px;
-}
 /* Color was white */
 .v-app .qr-code {
     color: inherit;
