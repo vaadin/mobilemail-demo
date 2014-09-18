@@ -21,13 +21,14 @@ public class MobileMailServlet extends TouchKitServlet {
     private final UIProvider uiProvider = new UIProvider() {
         @Override
         public Class<? extends UI> getUIClass(UIClassSelectionEvent event) {
-            String userAgent = event.getRequest().getHeader("user-agent")
-                    .toLowerCase();
+            String userAgent = event.getRequest().getHeader("user-agent");
             // webkit: safari, chrome, android, iOS
             // gecko: FF, IE11
             // trident/6|7: IE10/11
             // windows phone: WP
-            if (userAgent.matches(".*(webkit|gecko|windows phone|trident/(6|7)).*")) {
+            if (userAgent != null
+                    && userAgent.toLowerCase().matches(
+                            ".*(webkit|gecko|windows phone|trident/(6|7)).*")) {
                 return MobileMailUI.class;
             } else {
                 return FallbackUI.class;

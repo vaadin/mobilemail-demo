@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <vaadin.version>7.3.0</vaadin.version>
         <vaadin.version.maven>7.3.0</vaadin.version.maven>
-        <touchkit.version>4.0.0.rc1</touchkit.version>
+        <touchkit.version>4.0.0</touchkit.version>
     </properties>
     <repositories>
         <repository>
@@ -136,7 +136,6 @@
                     </webappDirectory>
                     <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets
                     </hostedWebapp>
-                    <extraJvmArgs>-Xmx1g -Xss4024k</extraJvmArgs>
                     <noServer>true</noServer>
                     <!-- Remove draftCompile when project is ready -->
                     <draftCompile>false</draftCompile>
@@ -145,7 +144,9 @@
                     <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
                     <deploy>${project.build.directory}/gwt-deploy</deploy>
                     <runTarget>http://localhost:8080/</runTarget>
-                    <extraJvmArgs>-Xmx1024M -Xss4024k -XX:MaxPermSize=128m</extraJvmArgs>
+                    <extraJvmArgs>
+                       -Xmx1024M -Xss4024k -XX:MaxPermSize=128m
+                    </extraJvmArgs>
                     <disableClassMetadata>false</disableClassMetadata>
                     <disableCastChecking>true</disableCastChecking>
                     <enableClosureCompiler>false</enableClosureCompiler>

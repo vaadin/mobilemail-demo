@@ -37,6 +37,7 @@ import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.server.WebBrowser;
+import com.vaadin.shared.communication.PushMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
@@ -69,11 +70,23 @@ public class MobileMailUI extends UI {
         return viewPortWidth > 1024;
     }
 
+    private boolean isMobile(VaadinRequest request) {
+        String userAgent = request.getHeader("user-agent").toLowerCase();
+        return userAgent != null
+                && userAgent.toLowerCase().matches(
+                        ".*(iphone|ipad|android|mobile).*");
+    }
+
     @Override
     protected void init(VaadinRequest request) {
 
-       // We use the one MailContainer instance per client.
+        // We use one MailContainer instance per client.
         MobileMailContainer ds = DummyDataUtil.getContainer();
+
+        // Disable Push in mobile (#14606)
+        if (isMobile(request)) {
+            getPushConfiguration().setPushMode(PushMode.DISABLED);
+        }
 
         if (isSmallScreenDevice()) {
             setContent(new SmartphoneMainView(ds));

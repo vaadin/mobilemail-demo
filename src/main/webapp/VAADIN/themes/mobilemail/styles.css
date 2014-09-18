@@ -405,19 +405,14 @@
 /* Animate new messages comming */
 @-webkit-keyframes newMessage {
     0% {
-        opacity: 0;
-        -webkit-transform: translate3d(0, 100px, 100px) rotateX(-90deg);
+        -webkit-transform: perspective(100px) rotateX(60deg) translateY(-150px) scale(0.6);
     }
     100% {
-        opacity: 1;
-        -webkit-transform: translate3d(0, 0, 0) rotateX(0deg);
+        -webkit-transform: perspective(100px) rotateX(0) translateY(0) scale(1);
     }
 }
-.message-list .v-table-table {
-    -webkit-perspective: 300px;
-}
 .message-list .v-table-row-new {
-    -webkit-animation: 600ms ease-in-out newMessage;
+    -webkit-animation: 700ms ease-out newMessage;
 }
 
 /* TODO these below should be fixed in TouchKit theme */
